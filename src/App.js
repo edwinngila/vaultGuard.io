@@ -1,24 +1,25 @@
-import logo from './logo.svg';
-import './App.css';
+import "bootstrap/dist/css/bootstrap.min.css"
+import SignupForm from "./Auth/SignupForm";
+// import SigninForm from "./Auth/SigninForm";
+import { SnackTost } from "./UseContext/Hook";
+import { useState } from "react";
+import SimpleSnackbar from "./Components/snackBar";
 
 function App() {
+  const [open, setOpen] = useState(false);
+  const [message,setMessage]= useState('');
+  const [severity,setSeverity]=useState();
+  const snackBarValues={
+    open, setOpen,
+    message,setMessage,
+    severity,setSeverity
+  }
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <SnackTost.Provider value={snackBarValues}>
+          <SimpleSnackbar/>
+          <SignupForm/>
+       {/* // <SigninForm/> */}
+    </SnackTost.Provider>
   );
 }
 
