@@ -1,7 +1,8 @@
 
-import { createUserWithEmailAndPassword, getAuth } from "firebase/auth";
+import { createUserWithEmailAndPassword, getAuth, updateProfile } from "firebase/auth";
 import app from "../Server/Firebase";
 import { addDoc, collection, getFirestore } from "firebase/firestore";
+// import { redirect, useNavigate } from "react-router-dom";
 
 const AddUsers=(FirstName,SecondName,Email,UserID)=>{
     const firestore = getFirestore(app);
@@ -30,26 +31,46 @@ const HandleSubmit=(
     setMessage,
     setSeverity,
     open, 
-    setOpen
+    setOpen,
+    handleClose,
+    handleOpen
 )=>{
     const Auth = getAuth(app)
+    handleOpen();
+    if(!FirstName||!SecondName||!email||!Password){
+        handleClose()
+        setOpen(!open)
+        setMessage("Fill all Fields")
+        setSeverity("error")
+        return
+    }
     createUserWithEmailAndPassword(Auth,email,Password)
     .then((userCredential)=>{
         const user = userCredential.user;
         const UserID = user.uid;
+        if(!FirstName||!SecondName||!email){
+            handleClose()
+            setOpen(!open)
+            setMessage("Fill all Fields")
+            setSeverity("error")
+            return
+        }
+        updateProfile(Auth.currentUser,{
+            displayName:`${FirstName} ${SecondName}`
+        })
         AddUsers(FirstName,SecondName,email,UserID)
-
         //call the snack bar from context
+        handleClose()
         setOpen(!open)
         setMessage("User regestered successful")
         setSeverity("success")
-        console.log(user);
     })
     .catch((error) => {
         const errorCode = error.code;
         // const errorMessage = error.message;
 
         //call the snack bar from context
+        handleClose()
         setOpen(!open)
         setMessage(errorCode)
         setSeverity("error")

@@ -5,6 +5,8 @@ import "../css/signupForm.css"
 import { useContext, useState } from "react";
 import HandleSubmit from "../FirebaseFunctions/SignupFunctions";
 import { SnackTost } from "../UseContext/Hook";
+import { Link } from "react-router-dom";
+import { Progress } from "../UseContext/ScreenLoader";
 
 const SignupForm =()=>{
     const[FirstName,setFirstName]=useState();
@@ -12,17 +14,18 @@ const SignupForm =()=>{
     const[email,setEmail]=useState();
     const[Password,setPassword]=useState();
     const { open, setOpen, setMessage, setSeverity } = useContext(SnackTost);
+    const{handleClose,handleOpen}=useContext(Progress);
 
-    const handleSubmit = (e, FirstName, SecondName, email, Password) => {
+    const handleSubmit = (e, FirstName, SecondName, email, Password,handleClose,handleOpen) => {
         e.preventDefault();
-        HandleSubmit(FirstName, SecondName, email, Password,setMessage, setSeverity,open, setOpen);
+        HandleSubmit(FirstName, SecondName, email, Password,setMessage, setSeverity,open, setOpen,handleClose,handleOpen);
     };
     return(
         <Container fluid style={{backgroundColor:"#5cdb95",height:"100vh"}} className="d-flex justify-content-center align-content-center ">
-            <div className="col-4 row d-flex align-items-center justify-content-center mt-5 rounded-2" style={{backgroundColor:"#379683",height:"90vh"}}>
-                <Form onSubmit={(e)=>{handleSubmit(e,FirstName, SecondName, email, Password)}} className="col-10">
+            <div className="row d-flex align-items-center justify-content-center">
+                <Form onSubmit={(e)=>{handleSubmit(e,FirstName, SecondName, email, Password,handleClose,handleOpen)}} className="col-10 p-4 rounded-2" style={{backgroundColor:"#379683"}}>
                     <div className="row">
-                        <h2 className="mt-3" style={{color:"#edf5e1"}}>Create an account</h2>
+                        <h1 className="mt-2" style={{color:"#edf5e1"}}>Create an account</h1>
                         <h6 style={{color:"#edf5e1"}}>Welcome! Pleace enter your details</h6>
                     </div>
                     <FormGroup>
@@ -32,6 +35,7 @@ const SignupForm =()=>{
                             label="FirstName" 
                             className="mt-4 form-inputs"
                             variant="outlined" 
+                            name="firstname"
                             value={FirstName}
                             onChange={(e)=>{setFirstName(e.target.value)}}
                         />
@@ -43,6 +47,7 @@ const SignupForm =()=>{
                             label="SecondName" 
                             className="mt-4 form-inputs"
                             variant="outlined" 
+                            name="lastname"
                             value={SecondName}
                             onChange={(e)=>{setSecondName(e.target.value)}}
                         />
@@ -55,6 +60,7 @@ const SignupForm =()=>{
                             label="Email" 
                             className="mt-4 form-inputs"
                             variant="outlined" 
+                            name="Email"
                             value={email}
                             onChange={(e)=>{setEmail(e.target.value)}}
                         />
@@ -67,6 +73,7 @@ const SignupForm =()=>{
                             className="mt-4 form-inputs"
                             variant="outlined" 
                             type="password"
+                            name="password"
                             value={Password}
                             onChange={(e)=>{setPassword(e.target.value)}}
                         />
@@ -75,10 +82,10 @@ const SignupForm =()=>{
                         <Button type="submit" className="mt-4 col-12 " variant="contained" style={{backgroundColor:"#05386b"}} >Signup</Button>
                     </FormGroup>
                     <FormGroup>
-                        <Button className="mt-4 col-12 " variant="contained" style={{backgroundColor:"#05386b"}} startIcon={<GoogleIcon />}>Signup with Google</Button>
+                        <Button className="mt-3 col-12 " variant="contained" style={{backgroundColor:"#05386b"}} startIcon={<GoogleIcon />}>Signup with Google</Button>
                     </FormGroup>
                     <div className="row d-flex justify-content-center align-content-center ">
-                        <p className="mt-3" style={{textAlign:"center"}}>You have an account <a href="#" alt="redirect" style={{color:"#edf5e1"}}><b>Login</b></a></p>
+                        <p className="mt-3" style={{textAlign:"center"}}>You have an account <Link style={{color:"#edf5e1"}} to="/"><b>Login</b></Link></p>
                     </div>
                 </Form>
             </div>
