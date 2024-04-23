@@ -39,7 +39,7 @@ function App() {
     if (rememberMeCookie === 'true' && usernameCookie) {
         history("/HomePage")
     }
-});
+},[]);
   return (
     <SnackTost.Provider value={snackBarValues}>
       <Progress.Provider value={{OpenLoader,setOpenLoader,handleClose,handleOpen}}>

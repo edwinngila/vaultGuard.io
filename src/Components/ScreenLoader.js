@@ -7,10 +7,10 @@ const ScreenLoader=()=>{
     return(
     <Fade in={OpenLoader}>
         <Backdrop
-           sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+           sx={{ color: '#379683', zIndex: (theme) => theme.zIndex.drawer + 1 }}
            open={OpenLoader}
         >
-           <CircularProgress color="secondary" />
+           <CircularProgress style={{color:"#379683"}}/>
        </Backdrop>
    </Fade>
     )
