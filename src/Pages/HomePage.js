@@ -21,15 +21,12 @@ import UploadFileIcon from '@mui/icons-material/UploadFile';
 import AudioFileIcon from '@mui/icons-material/AudioFile';
 import InsertPhotoIcon from '@mui/icons-material/InsertPhoto';
 import PictureAsPdfIcon from '@mui/icons-material/PictureAsPdf';
-import DataTable from "react-data-table-component";
+import HomeSubPage from "../sub-pages/HomeSubPage";
 
-import SaveAltIcon from '@mui/icons-material/SaveAlt';
-import DeleteIcon from '@mui/icons-material/Delete';
-import PersonAddAltIcon from '@mui/icons-material/PersonAddAlt';
 
 const HomePage=()=>{
     const { open, setOpen, setMessage, setSeverity } = useContext(SnackTost);
-    const{handleClose,handleOpen}=useContext(Progress);
+    const{handleClose,handleOpen,handleDialogOpen}=useContext(Progress);
     const history = useNavigate();
     const [OpenMenu, setOpenMenu] = useState(false);
     const [anchorEl, setAnchorEl] = useState(null);
@@ -53,114 +50,73 @@ const HomePage=()=>{
           },
         },
       });
-    const Columns=[
-        {
-            name:"Name",
-            selector: row=>row.id,
-            sortable:true
-        },
-        {
-            name:"Date added",
-            selector: row=>row.name,
-            sortable:true
-        },
-        {
-            name:"File size",
-            selector: row=>row.contacts,
-            sortable:true
-        },
-        {
-            name:"Action",
-            selector: row=>row.Action,
-            sortable:true
-        }
-    ];
-    const data=[
-        {
-            id:1,
-            name:"Susma Suppliers",
-            contacts:"0704922743",
-            Action:<p><SaveAltIcon/><DeleteIcon/><PersonAddAltIcon/></p>
-        },
-        {
-            id:1,
-            name:"Susma Suppliers",
-            contacts:"0704922743",
-            Action:<p><SaveAltIcon/><DeleteIcon/><PersonAddAltIcon/></p>
-        },
-        {
-            id:1,
-            name:"Susma Suppliers",
-            contacts:"0704922743",
-            Action:<p><SaveAltIcon/> <DeleteIcon/><PersonAddAltIcon/></p>
-        },
-        {
-            id:1,
-            name:"Susma Suppliers",
-            contacts:"0704922743",
-            Action:<p><SaveAltIcon/><DeleteIcon/><PersonAddAltIcon/></p>
-        },
-    ];
-    const myStyle={
-        rows:{
-            style:{
-                backgroundColor:"#EDF5E1"
-            }
-        },
-        headRow: {
-            style: {
-                backgroundColor:"#EDF5E1"
-            }
-        }
-    }
     return(
         <Container style={{overflowX:"hidden"}} fluid>
            <div style={{height:"100vh"}} className="row">
                 <div style={{backgroundColor:"#86D5A7"}} className="col-2">
                     <img width={180} src={WebLogo} alt="img"></img>
-                    <div>
-                    <Button onClick={(event)=>{handleMenuOpen(event)}} style={{background:"#379683"}} className="mt-4 p-4 rounded-4" startIcon={<AddIcon />} variant="contained">New</Button>
+                     <div>
+                    <Button
+                     style={{background:"#379683"}} 
+                     className="mt-4 p-4 rounded-4" 
+                     startIcon={<AddIcon />} 
+                     variant="contained"
+
+                     id="basic-button"
+                     aria-controls={OpenMenu ? 'basic-menu' : undefined}
+                     aria-haspopup="true"
+                     aria-expanded={OpenMenu ? 'true' : undefined}
+                     onClick={(event)=>{handleMenuOpen(event)}}
+                     >New
+                     </Button>
                     <Menu
                        id="basic-menu"
+                       className="mt-5"
                        anchorEl={anchorEl}
                        open={OpenMenu}
                        onClose={handleMenuClose}
-                       anchorOrigin={{ horizontal: 'left', vertical: 'center' }} 
-                       transformOrigin={{ horizontal: 'center', vertical: 'top' }} 
+                       anchorOrigin={{ horizontal: 'left', vertical: 'top' }} 
+                       transformOrigin={{ horizontal: 'left', vertical: 'top' }} 
                        MenuListProps={{
                          'aria-labelledby': 'basic-button',
                        }}
                     >
                         <List>
-                            <ListItemButton>
+                            <ListItemButton onClick={
+                                (e)=>
+                                    {
+                                        handleDialogOpen();
+                                        handleMenuClose(e)
+                                    }
+                                }>
                                 <ListItemIcon>
                                   <FolderIcon/>
                                 </ListItemIcon>
                                <ListItemText primary="New folder"/>
                             </ListItemButton>
 
-                            <ListItemButton>
+                            <ListItemButton type="file" onClick={handleMenuClose}>
                                 <ListItemIcon>
                                   <UploadFileIcon/>
                                 </ListItemIcon>
                                <ListItemText primary="Upload file"/>
                             </ListItemButton>
 
-                            <ListItemButton>
+                            <ListItemButton onClick={handleMenuClose}>
                                 <ListItemIcon>
                                   <AudioFileIcon/>
                                 </ListItemIcon>
                                <ListItemText primary="Upload Audio"/>
                             </ListItemButton>
 
-                            <ListItemButton>
+                            <ListItemButton onClick={handleMenuClose}>
                                 <ListItemIcon>
                                   <InsertPhotoIcon/>
                                 </ListItemIcon>
                                <ListItemText primary="Upload Image"/>
                             </ListItemButton>
 
-                            <ListItemButton>
+                            <ListItemButton onClick={handleMenuClose}>
                                 <ListItemIcon>
                                   <PictureAsPdfIcon/>
                                 </ListItemIcon>
@@ -265,12 +221,7 @@ const HomePage=()=>{
                              </div>
                            </div>
                            <div className="row">
-                           <DataTable
-                                className="mt-3 p-1"
-                                columns={Columns}
-                                data={data}
-                                customStyles={myStyle}
-                            ></DataTable>
+                                 <HomeSubPage/>
                            </div>
                     </SimpleBar>
                 </div>

@@ -11,12 +11,22 @@ import HomePage from "./Pages/HomePage";
 import LandingPage from "./Pages/LandingPage";
 import ScreenLoader from "./Components/ScreenLoader";
 import Cookies from "js-cookie";
+import FormDialog from "./Components/ScreenDialog";
 
 function App() {
   const [open, setOpen] = useState(false);
   const [message,setMessage]= useState('');
   const [severity,setSeverity]=useState();
   const [OpenLoader, setOpenLoader] = useState(false);
+  const [OpenDialog,setOpenDialog]= useState(false);
+
+  const handleDialogOpen = () => {
+    setOpenDialog(true);
+  };
+
+  const handleDialogClose = () => {
+    setOpenDialog(false);
+  };
 
   const handleClose = () => {
     setOpenLoader(false);
@@ -29,7 +39,13 @@ function App() {
   const snackBarValues={
     open, setOpen,
     message,setMessage,
-    severity,setSeverity
+    severity,setSeverity,
+  }
+  const ScreenPops ={
+    OpenLoader,setOpenLoader,
+    handleClose,handleOpen,
+    handleDialogOpen,handleDialogClose,
+    OpenDialog,setOpenDialog
   }
   const history= useNavigate()
   useEffect(() => {
@@ -42,7 +58,8 @@ function App() {
 },[]);
   return (
     <SnackTost.Provider value={snackBarValues}>
-      <Progress.Provider value={{OpenLoader,setOpenLoader,handleClose,handleOpen}}>
+      <Progress.Provider value={ScreenPops}>
+        <FormDialog/>
         <ScreenLoader/>
         <SimpleSnackbar/>
           <Routes>
