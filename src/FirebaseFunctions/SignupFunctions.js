@@ -33,7 +33,8 @@ const HandleSubmit=(
     open, 
     setOpen,
     handleClose,
-    handleOpen
+    handleOpen,
+    history
 )=>{
     const Auth = getAuth(app)
     handleOpen();
@@ -64,6 +65,7 @@ const HandleSubmit=(
         setOpen(!open)
         setMessage("User regestered successful")
         setSeverity("success")
+        history("/");
     })
     .catch((error) => {
         const errorCode = error.code;

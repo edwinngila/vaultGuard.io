@@ -10,7 +10,7 @@ import AccessTimeFilledIcon from '@mui/icons-material/AccessTimeFilled';
 import StarIcon from '@mui/icons-material/Star';
 import CloudIcon from '@mui/icons-material/Cloud';
 import LogoutIcon from '@mui/icons-material/Logout';
-import { useContext, useState} from "react";
+import { createRef, useContext, useState} from "react";
 import { SnackTost } from "../UseContext/Hook";
 import SignOut from "../FirebaseFunctions/SignoutFunctions";
 import { Progress } from "../UseContext/ScreenLoader";
@@ -31,6 +31,12 @@ const HomePage=()=>{
     const [OpenMenu, setOpenMenu] = useState(false);
     const [anchorEl, setAnchorEl] = useState(null);
 
+    const [UploadFile,setUploadFile]=useState(null); 
+    const [UploadAudio,setUploadAudio]=useState(null); 
+    const [UploadPDF,setUploadPDF]=useState(null); 
+    const [UploadImage,setUploadImage]=useState(null); 
+    const fileInputRef = createRef();
+
     const handleMenuClose = (event) => {
         setAnchorEl(event.currentTarget);
         setOpenMenu(false);
@@ -40,6 +46,13 @@ const HomePage=()=>{
         setOpenMenu(true);
         setAnchorEl(null);
     };
+    const handleFileChange = (e) => {
+        const file = e.target.files[0];
+        if (file) {
+          console.log("File uploaded:", file);
+          setUploadFile(file);
+        }
+      };
     const RoundedTextField = styled(TextField)({
         '& .MuiOutlinedInput-root': {
           borderRadius: '30px',
@@ -49,6 +62,17 @@ const HomePage=()=>{
             borderColor: '#E9EEF6',
           },
         },
+      });
+      const VisuallyHiddenInput = styled('input')({
+        clip: 'rect(0 0 0 0)',
+        clipPath: 'inset(50%)',
+        height: 1,
+        overflow: 'hidden',
+        position: 'absolute',
+        bottom: 0,
+        left: 0,
+        whiteSpace: 'nowrap',
+        width: 1,
       });
     return(
         <Container style={{overflowX:"hidden"}} fluid>
@@ -95,32 +119,41 @@ const HomePage=()=>{
                                <ListItemText primary="New folder"/>
                             </ListItemButton>
 
-                            <ListItemButton type="file" onClick={handleMenuClose}>
+                            <ListItemButton component="label" onClick={
+                                (e)=>{
+                                    handleMenuClose(e);
+                                    fileInputRef.current.click();
+                                }
+                                }>
                                 <ListItemIcon>
                                   <UploadFileIcon/>
                                 </ListItemIcon>
                                <ListItemText primary="Upload file"/>
+                               <VisuallyHiddenInput onChange={handleFileChange} type="file" />
                             </ListItemButton>
 
-                            <ListItemButton onClick={handleMenuClose}>
+                            <ListItemButton component="label" onClick={handleMenuClose}>
                                 <ListItemIcon>
                                   <AudioFileIcon/>
                                 </ListItemIcon>
                                <ListItemText primary="Upload Audio"/>
+                               <VisuallyHiddenInput onChange={(e)=>{setUploadAudio(e.target.files[0])}} type="file" />
                             </ListItemButton>
 
-                            <ListItemButton onClick={handleMenuClose}>
+                            <ListItemButton component="label" onClick={handleMenuClose}>
                                 <ListItemIcon>
                                   <InsertPhotoIcon/>
                                 </ListItemIcon>
                                <ListItemText primary="Upload Image"/>
+                               <VisuallyHiddenInput onChange={(e)=>{setUploadImage(e.target.files[0])}} type="file" />
                             </ListItemButton>
 
-                            <ListItemButton onClick={handleMenuClose}>
+                            <ListItemButton component="label" onClick={handleMenuClose}>
                                 <ListItemIcon>
                                   <PictureAsPdfIcon/>
                                 </ListItemIcon>
                                <ListItemText primary="Upload PDF"/>
+                               <VisuallyHiddenInput onChange={(e)=>{setUploadPDF(e.target.files[0])}} type="file" />
                             </ListItemButton>
                         </List>
                     </Menu>

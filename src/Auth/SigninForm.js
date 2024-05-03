@@ -1,4 +1,4 @@
-import { Button, Checkbox, Dialog, DialogContent, DialogContentText, DialogTitle, FormControlLabel, TextField} from "@mui/material";
+import { Button, Checkbox, FormControlLabel, TextField} from "@mui/material";
 import { Container, Form, FormGroup } from "react-bootstrap";
 import GoogleIcon from '@mui/icons-material/Google';
 import "../css/signupForm.css"
@@ -8,12 +8,10 @@ import { SnackTost } from "../UseContext/Hook";
 import { Link, useNavigate } from "react-router-dom";
 import { Progress } from "../UseContext/ScreenLoader";
 import ReCAPTCHA from "react-google-recaptcha";
-import robo from "../Img/img.jpg"
 
 const SigninForm =()=>{
     const[email,setEmail]=useState();
     const[Password,setPassword]=useState();
-    const [OpenMenu, setOpenMenu] = useState(false);
     const [rememberMe, setRememberMe] = useState(false);
     const[saveItems,setSaveItems]=useState(false)
     const { open, setOpen, setMessage, setSeverity } = useContext(SnackTost);
@@ -34,7 +32,6 @@ const SigninForm =()=>{
     const RecaptchaOnChange=(value)=>{
         if(value){
             setSaveItems(true);
-            setOpenMenu(false);
 
         }
         else{
