@@ -10,7 +10,7 @@ import AccessTimeFilledIcon from '@mui/icons-material/AccessTimeFilled';
 import StarIcon from '@mui/icons-material/Star';
 import CloudIcon from '@mui/icons-material/Cloud';
 import LogoutIcon from '@mui/icons-material/Logout';
-import { createRef, useContext, useState} from "react";
+import { useContext, useState} from "react";
 import { SnackTost } from "../UseContext/Hook";
 import SignOut from "../FirebaseFunctions/SignoutFunctions";
 import { Progress } from "../UseContext/ScreenLoader";
@@ -22,6 +22,7 @@ import AudioFileIcon from '@mui/icons-material/AudioFile';
 import InsertPhotoIcon from '@mui/icons-material/InsertPhoto';
 import PictureAsPdfIcon from '@mui/icons-material/PictureAsPdf';
 import HomeSubPage from "../sub-pages/HomeSubPage";
+import { UploadAudioAction, UploadFileAction, UploadImageAction, UploadPDFAction } from "../FirebaseFunctions/HomeFunctions";
 
 
 const HomePage=()=>{
@@ -30,29 +31,21 @@ const HomePage=()=>{
     const history = useNavigate();
     const [OpenMenu, setOpenMenu] = useState(false);
     const [anchorEl, setAnchorEl] = useState(null);
-
-    const [UploadFile,setUploadFile]=useState(null); 
-    const [UploadAudio,setUploadAudio]=useState(null); 
-    const [UploadPDF,setUploadPDF]=useState(null); 
-    const [UploadImage,setUploadImage]=useState(null); 
-    const fileInputRef = createRef();
-
     const handleMenuClose = (event) => {
         setAnchorEl(event.currentTarget);
         setOpenMenu(false);
     };
-
     const handleMenuOpen = () => {
         setOpenMenu(true);
         setAnchorEl(null);
     };
-    const handleFileChange = (e) => {
-        const file = e.target.files[0];
-        if (file) {
-          console.log("File uploaded:", file);
-          setUploadFile(file);
-        }
-      };
+    // const handleFileChange = (e) => {
+    //     const file = e.target.files[0];
+    //     if (file) {
+    //       console.log("File uploaded:", file);
+    //       setUploadFile(file);
+    //     }
+    //   };
     const RoundedTextField = styled(TextField)({
         '& .MuiOutlinedInput-root': {
           borderRadius: '30px',
@@ -119,41 +112,52 @@ const HomePage=()=>{
                                <ListItemText primary="New folder"/>
                             </ListItemButton>
 
-                            <ListItemButton component="label" onClick={
-                                (e)=>{
-                                    handleMenuClose(e);
-                                    fileInputRef.current.click();
-                                }
-                                }>
-                                <ListItemIcon>
-                                  <UploadFileIcon/>
-                                </ListItemIcon>
-                               <ListItemText primary="Upload file"/>
-                               <VisuallyHiddenInput onChange={handleFileChange} type="file" />
+                            <ListItemButton className="col-12" component="label">
+                                 <ListItemIcon>
+                                    <UploadFileIcon/>
+                                  </ListItemIcon>
+                                <ListItemText primary="Upload file"/>                                 
+                                <VisuallyHiddenInput onChange={
+                                  (e)=>{
+                                    setOpenMenu(false);
+                                    UploadFileAction(e.target.files[0],open, setOpen, setMessage, setSeverity,handleClose,handleOpen)
+                                  }} type="file" accept="audio/*, image/*, text/*"/>
                             </ListItemButton>
 
-                            <ListItemButton component="label" onClick={handleMenuClose}>
+                            <ListItemButton component="label" >
                                 <ListItemIcon>
                                   <AudioFileIcon/>
                                 </ListItemIcon>
                                <ListItemText primary="Upload Audio"/>
-                               <VisuallyHiddenInput onChange={(e)=>{setUploadAudio(e.target.files[0])}} type="file" />
+                               <VisuallyHiddenInput onChange={
+                                (e)=>{
+                                  setOpenMenu(false);
+                                  UploadAudioAction(e.target.files[0],open, setOpen, setMessage, setSeverity,handleClose,handleOpen)
+                               }} type="file" accept="audio/*" />
                             </ListItemButton>
 
-                            <ListItemButton component="label" onClick={handleMenuClose}>
+                            <ListItemButton component="label">
                                 <ListItemIcon>
                                   <InsertPhotoIcon/>
                                 </ListItemIcon>
                                <ListItemText primary="Upload Image"/>
-                               <VisuallyHiddenInput onChange={(e)=>{setUploadImage(e.target.files[0])}} type="file" />
+                               <VisuallyHiddenInput onChange={
+                                (e)=>{
+                                  setOpenMenu(false);
+                                  UploadImageAction(e.target.files[0],open, setOpen, setMessage, setSeverity,handleClose,handleOpen)
+                                }} type="file" accept="image/*" />
                             </ListItemButton>
 
-                            <ListItemButton component="label" onClick={handleMenuClose}>
+                            <ListItemButton component="label">
                                 <ListItemIcon>
                                   <PictureAsPdfIcon/>
                                 </ListItemIcon>
                                <ListItemText primary="Upload PDF"/>
-                               <VisuallyHiddenInput onChange={(e)=>{setUploadPDF(e.target.files[0])}} type="file" />
+                               <VisuallyHiddenInput onChange={
+                                (e)=>{
+                                  setOpenMenu(false);
+                                  UploadPDFAction(e.target.files[0],open, setOpen, setMessage, setSeverity,handleClose,handleOpen)
+                                  }} type="file" accept="application/pdf, image/*"/>
                             </ListItemButton>
                         </List>
                     </Menu>

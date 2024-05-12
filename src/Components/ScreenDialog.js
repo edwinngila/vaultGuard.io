@@ -7,9 +7,13 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import { Progress } from '../UseContext/ScreenLoader';
+import { SnackTost } from '../UseContext/Hook';
+import { newFolderAction } from '../FirebaseFunctions/HomeFunctions';
 
 export default function FormDialog() {
-  const{handleDialogClose,OpenDialog}=React.useContext(Progress);
+  const { open, setOpen, setMessage, setSeverity } = React.useContext(SnackTost);
+  const{handleDialogClose,OpenDialog,handleClose,handleOpen}=React.useContext(Progress);
+  const[newFolder,setNewFolder]=React.useState()
   return (
       <Dialog
         open={OpenDialog}
@@ -25,6 +29,8 @@ export default function FormDialog() {
             autoFocus
             required
             margin="dense"
+            value={newFolder}
+            onChange={(e)=>{setNewFolder(e.target.value)}}
             id="name"
             name="Untitled folder"
             label="Untitled folder"
@@ -34,7 +40,7 @@ export default function FormDialog() {
         </DialogContent>
         <DialogActions>
           <Button onClick={handleDialogClose}>Cancel</Button>
-          <Button type="submit">Create</Button>
+          <Button type="submit" onClick={()=>{newFolderAction(newFolder,open, setOpen, setMessage, setSeverity,handleClose,handleOpen);handleDialogClose()}}>Create</Button>
         </DialogActions>
       </Dialog>
   );

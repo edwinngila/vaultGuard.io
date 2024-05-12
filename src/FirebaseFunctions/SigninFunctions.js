@@ -2,7 +2,7 @@ import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import app from "../Server/Firebase";
 import Cookies from "js-cookie";
 
-const HandleSubmit=(email, password,setMessage, setSeverity,open, setOpen,rememberMe,handleClose,handleOpen,history)=>{
+export const HandleSubmit=(email, password,setMessage, setSeverity,open, setOpen,rememberMe,handleClose,handleOpen,history)=>{
     handleOpen()
     if(!email||!password){
         setOpen(!open)
@@ -20,13 +20,15 @@ const HandleSubmit=(email, password,setMessage, setSeverity,open, setOpen,rememb
            Cookies.set('Email',user.email,{expires:7})
            Cookies.set('Name',user.displayName,{expires:7})
            Cookies.set('AccessToken',user.refreshToken,{expires:7})
-           history("/HomePage");
+           Cookies.set('Uid',user.providerId,{expires:7})
+           history("/HomePage")
         }
         else{
             Cookies.set('RememberMe',rememberMe)
             Cookies.set('email',user.email)
             Cookies.set('Name',user.displayName)
             Cookies.set('AccessToken',user.refreshToken)
+            Cookies.set('Uid',user.uid)
             history("/HomePage");
         }
         //call the snack bar from context

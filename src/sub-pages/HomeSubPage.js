@@ -5,8 +5,17 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import PersonAddAltIcon from '@mui/icons-material/PersonAddAlt';
 import FolderIcon from '@mui/icons-material/Folder';
 import StarIcon from '@mui/icons-material/Star';
+import { useContext, useEffect } from "react";
+import { ListDirectories } from "../FirebaseFunctions/HomeFunctions";
+import { Items } from "../UseContext/Items";
 
 const HomeSubPage =()=>{
+    const{ folders,setFolders,getFiles,setGetFiles}=useContext(Items)
+
+    useEffect(()=>{
+         ListDirectories(folders,setFolders)
+         console.log(folders)
+    },[])
     const Columns=[
         {
             name:"Name",
@@ -31,49 +40,16 @@ const HomeSubPage =()=>{
     ];
     const data=[
         {
-            id:1,
-            name:<p><FolderIcon/> Susma Suppliers</p>,
-            contacts:"0704922743",
-            Action:<p>
-                    <SaveAltIcon/>
-                    <DeleteIcon color="error"/>
-                    <PersonAddAltIcon style={{color:"#379683"}}/>
-                    <StarIcon/>
-                </p>
-        },
-        {
-            id:1,
-            name:<p><FolderIcon/> Susma Suppliers</p>,
-            contacts:"0704922743",
-            Action:<p>
-                    <SaveAltIcon/>
-                    <DeleteIcon color="error"/>
-                    <PersonAddAltIcon style={{color:"#379683"}}/>
-                    <StarIcon/>
-                  </p>
-        },
-        {
-            id:1,
-            name:<p><FolderIcon/> Susma Suppliers</p>,
-            contacts:"0704922743",
-            Action:<p>
-                    <SaveAltIcon/>
-                    <DeleteIcon color="error"/>
-                    <PersonAddAltIcon style={{color:"#379683"}}/>
-                    <StarIcon/>
-                </p>
-        },
-        {
-            id:1,
-            name:<p><FolderIcon/> Susma Suppliers</p>,
-            contacts:"0704922743",
-            Action:<p>
-                     <SaveAltIcon/>
-                     <DeleteIcon color="error"/>
-                     <PersonAddAltIcon style={{color:"#379683"}}/>
-                     <StarIcon/>
-                    </p>
-        },
+            // id:1,
+            // name:<p><FolderIcon/> Susma Suppliers</p>,
+            // contacts:"0704922743",
+            // Action:<p>
+            //         <SaveAltIcon/>
+            //         <DeleteIcon color="error"/>
+            //         <PersonAddAltIcon style={{color:"#379683"}}/>
+            //         <StarIcon/>
+            //       </p>
+        }
     ];
     const myStyle={
         rows:{
