@@ -244,26 +244,29 @@ export const UploadPDFAction=(File,open, setOpen, setMessage, setSeverity,handle
       });
 };
 
-export const ListDirectories = async (folders, setFolders) => {
+export const ListDirectories = async () => {
   try {
-    const storage = getStorage(app);
-    const userId = Cookies.get("Uid");
+    const lsFiles=[];
+    const lsFolders=[];
+    const storage = getStorage(app)
+    const userId = Cookies.get("Uid")
     const listRef = ref(storage, userId);
     const res = await listAll(listRef);
 
-    for (const file of res.items) {
-      const url = await getDownloadURL(file);
-      setFolders((prev) => [...prev,{name:file.name, URL:url}]);
+    const files = res.items;
+    const folders = res.prefixes;
+
+    for (const folder of folders) {
+      lsFiles.push({name:folder.name,size:folder.size})
     }
 
-    console.log(folders);
+    for (const file of files) {
+      const url = await getDownloadURL(file);
+      lsFiles.push({name:file.name, URL:url,size:file.size})
+    }
 
-    res.prefixes.forEach((folder) => {
-      console.log({
-        name: folder.name,
-        url: folder.fullPath,
-      });
-    })
+    localStorage.setItem("files",JSON.stringify(lsFiles));
+
   } catch (error) {
     console.log(error)
   }

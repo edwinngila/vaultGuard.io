@@ -24,7 +24,7 @@ const SignupForm =()=>{
     return(
         <Container fluid style={{backgroundColor:"#5cdb95",height:"100vh"}} className="d-flex justify-content-center align-content-center ">
             <div className="row d-flex align-items-center justify-content-center">
-                <Form onSubmit={(e)=>{handleSubmit(e,FirstName, SecondName, email, Password,handleClose,handleOpen,history)}} className="col-10 p-5 rounded-2" style={{backgroundColor:"#379683"}}>
+                <Form onSubmit={(e)=>{handleSubmit(e,FirstName, SecondName, email, Password,handleClose,handleOpen,history)}} className="col-9 p-5 rounded-2" style={{backgroundColor:"#379683"}}>
                     <div className="row">
                         <h1 className="mt-1" style={{color:"#edf5e1"}}>Create an account</h1>
                         <h6 style={{color:"#edf5e1"}}>Welcome! Pleace enter your details</h6>

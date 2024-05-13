@@ -238,7 +238,7 @@ const HomePage=()=>{
                             />
                          </div>
                     </div>
-                    <SimpleBar className="rounded-top-4" style={{ height: "89vh",backgroundColor:"#EDF5E1",overflowX:"hidden"}}>
+                    <SimpleBar className="rounded-top-4" style={{ height: "88.5vh",backgroundColor:"#EDF5E1",overflowX:"hidden"}}>
                            <div className="row p-3">
                              <div className="col-6">
                                 <h2 style={{fontWeight:"normal"}}>Welcome to vault</h2>

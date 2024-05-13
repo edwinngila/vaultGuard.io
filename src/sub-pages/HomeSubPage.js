@@ -5,50 +5,50 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import PersonAddAltIcon from '@mui/icons-material/PersonAddAlt';
 import FolderIcon from '@mui/icons-material/Folder';
 import StarIcon from '@mui/icons-material/Star';
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { ListDirectories } from "../FirebaseFunctions/HomeFunctions";
-import { Items } from "../UseContext/Items";
+import { Progress } from "../UseContext/ScreenLoader";
 
 const HomeSubPage =()=>{
-    const{ folders,setFolders,getFiles,setGetFiles}=useContext(Items)
+    const{handleClose,handleOpen}=useContext(Progress);
+    const [files,setFiles]=useState([])
 
-    useEffect(()=>{
-         ListDirectories(folders,setFolders)
-         console.log(folders)
+    useEffect(
+        ()=>{
+            handleOpen();
+            const fetchData = async () => {
+                try {
+                  await ListDirectories();
+                  const localStorageFiles = JSON.parse(localStorage.getItem('files'));
+
+                  setFiles(localStorageFiles);
+
+                  console.log(files);
+                  handleClose()
+                } catch (error) {
+                  console.error(error);
+                  handleClose();
+                }
+              };
+              fetchData();
     },[])
     const Columns=[
         {
             name:"Name",
-            selector: row=>row.id,
-            sortable:true
-        },
-        {
-            name:"Date added",
             selector: row=>row.name,
             sortable:true
         },
         {
-            name:"File size",
-            selector: row=>row.contacts,
-            sortable:true
-        },
-        {
             name:"Action",
-            selector: row=>row.Action,
+            selector:()=>{
+                     <p>
+                         <SaveAltIcon/>
+                         <DeleteIcon color="error"/>
+                         <PersonAddAltIcon style={{color:"#379683"}}/>
+                         <StarIcon/>
+                    </p>
+            },
             sortable:true
-        }
-    ];
-    const data=[
-        {
-            // id:1,
-            // name:<p><FolderIcon/> Susma Suppliers</p>,
-            // contacts:"0704922743",
-            // Action:<p>
-            //         <SaveAltIcon/>
-            //         <DeleteIcon color="error"/>
-            //         <PersonAddAltIcon style={{color:"#379683"}}/>
-            //         <StarIcon/>
-            //       </p>
         }
     ];
     const myStyle={
@@ -64,14 +64,12 @@ const HomeSubPage =()=>{
         }
     }
     return(
-        <Container fluid>
             <DataTable
                className="mt-3"
                columns={Columns}
-               data={data}
+               data={files}
                customStyles={myStyle}
             ></DataTable>
-        </Container>
     )
 }
 export default HomeSubPage;

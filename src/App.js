@@ -12,7 +12,6 @@ import LandingPage from "./Pages/LandingPage";
 import ScreenLoader from "./Components/ScreenLoader";
 import Cookies from "js-cookie";
 import FormDialog from "./Components/ScreenDialog";
-import { Items } from "./UseContext/Items";
 
 function App() {
   const [open, setOpen] = useState(false);
@@ -20,8 +19,6 @@ function App() {
   const [severity,setSeverity]=useState();
   const [OpenLoader, setOpenLoader] = useState(false);
   const [OpenDialog,setOpenDialog]= useState(false);
-  const [folders,setFolders]= useState([]);
-  const [files,setFiles]= useState([]);
 
   const handleDialogOpen = () => {
     setOpenDialog(true);
@@ -44,10 +41,7 @@ function App() {
     message,setMessage,
     severity,setSeverity,
   }
-  const items ={
-    folders,setFolders,
-    // files,setFiles
-  }
+
   const ScreenPops ={
     OpenLoader,setOpenLoader,
     handleClose,handleOpen,
@@ -58,6 +52,7 @@ function App() {
   useEffect(() => {
     const rememberMeCookie = Cookies.get("RememberMe");
     const usernameCookie = Cookies.get('Name');
+    
 
     if (rememberMeCookie === 'true' && usernameCookie) {
         history("/HomePage")
@@ -66,18 +61,16 @@ function App() {
   return (
     <SnackTost.Provider value={snackBarValues}>
       <Progress.Provider value={ScreenPops}>
-        <Items.Provider value={items}>
           <FormDialog/>
           <ScreenLoader/>
           <SimpleSnackbar/>
             <Routes>
-                <Route element={<SigninForm/>} path="/" index />
-                <Route element={<HomePage/>} path="/HomePage"/>
-                <Route element={<LandingPage/>} path="/Landing"/>
+                <Route element={<SigninForm/>} path="/Signin" index />
                 <Route element={<SignupForm/>} path="/Signup"/>
+                <Route element={<HomePage/>} path="/HomePage"/>
+                <Route element={<LandingPage/>} path="/"/>                
                 <Route element={<Forgotpassword/>} path="/Forgotpassword"/>
             </Routes>
-            </Items.Provider>
         </Progress.Provider>
     </SnackTost.Provider>
   );
