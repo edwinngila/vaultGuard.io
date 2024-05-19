@@ -11,7 +11,27 @@ import { Progress } from "../UseContext/ScreenLoader";
 
 const HomeSubPage =()=>{
     const{handleClose,handleOpen}=useContext(Progress);
-    const [files,setFiles]=useState([])
+    const [files,setFiles]=useState([]);
+
+    const handleDownload = () => {
+        // Logic to generate or fetch the file to be downloaded
+    
+        // Example: Generating a text file
+        const content = 'This is the content of the file.';
+        const fileBlob = new Blob([content], { type: 'text/plain' });
+        const fileUrl = URL.createObjectURL(fileBlob);
+    
+        // Create a temporary link element
+        const link = document.createElement('a');
+        link.href = fileUrl;
+        link.download = 'example.txt';
+    
+        // Simulate a click on the link to trigger the download
+        link.click();
+    
+        // Clean up the temporary link
+        URL.revokeObjectURL(fileUrl);
+      };
 
     useEffect(
         ()=>{
@@ -40,16 +60,15 @@ const HomeSubPage =()=>{
         },
         {
             name:"Action",
-            selector:()=>{
-                     <p>
-                         <SaveAltIcon/>
-                         <DeleteIcon color="error"/>
-                         <PersonAddAltIcon style={{color:"#379683"}}/>
-                         <StarIcon/>
-                    </p>
-            },
+            selector: row=>
+                          <div>
+                              <span style={{cursor:"pointer"}} className="m-1"><DeleteIcon/></span>
+                              <span style={{cursor:"pointer"}} className="m-1"><StarIcon/></span>
+                              <span style={{cursor:"pointer"}} className="m-1"><SaveAltIcon/></span>
+                          </div>,
+            width:"300px",
             sortable:true
-        }
+        },
     ];
     const myStyle={
         rows:{
@@ -61,6 +80,11 @@ const HomeSubPage =()=>{
             style: {
                 backgroundColor:"#EDF5E1"
             }
+        },
+        cells: {
+            style: {
+               width:"50px"
+            },
         }
     }
     return(
@@ -69,6 +93,8 @@ const HomeSubPage =()=>{
                columns={Columns}
                data={files}
                customStyles={myStyle}
+               pagination
+               fixedHeader
             ></DataTable>
     )
 }

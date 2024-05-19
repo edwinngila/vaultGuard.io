@@ -14,15 +14,15 @@ import { useContext, useState} from "react";
 import { SnackTost } from "../UseContext/Hook";
 import SignOut from "../FirebaseFunctions/SignoutFunctions";
 import { Progress } from "../UseContext/ScreenLoader";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, Outlet, useNavigate } from "react-router-dom";
 import SearchIcon from '@mui/icons-material/Search';
 import FolderIcon from '@mui/icons-material/Folder';
 import UploadFileIcon from '@mui/icons-material/UploadFile';
 import AudioFileIcon from '@mui/icons-material/AudioFile';
 import InsertPhotoIcon from '@mui/icons-material/InsertPhoto';
 import PictureAsPdfIcon from '@mui/icons-material/PictureAsPdf';
-import HomeSubPage from "../sub-pages/HomeSubPage";
 import { UploadAudioAction, UploadFileAction, UploadImageAction, UploadPDFAction } from "../FirebaseFunctions/HomeFunctions";
+import "../css/HomePage.css"
 
 
 const HomePage=()=>{
@@ -163,14 +163,14 @@ const HomePage=()=>{
                     </Menu>
                     </div>
                     <List className="p-0 mt-2">
-                        <ListItemButton style={{color:"#05386b"}} className="rounded-5">
+                        <ListItemButton onClick={()=>{history("")}} style={{color:"#05386b"}} className="rounded-5">
                            <ListItemIcon>
                                <HomeIcon sx={{ color:"#05386b" }}/>
                             </ListItemIcon>
                            <ListItemText primary="Home"/>
                         </ListItemButton>
 
-                        <ListItemButton style={{color:"#05386b"}} className="rounded-5">
+                        <ListItemButton onClick={()=>{history("MyDrive")}} style={{color:"#05386b"}} className="rounded-5">
                            <ListItemIcon>
                                <LibraryBooksIcon sx={{ color:"#05386b" }}/>
                             </ListItemIcon>
@@ -179,21 +179,21 @@ const HomePage=()=>{
                     </List>
 
                     <List className="mt-3">
-                       <ListItemButton style={{color:"#05386b"}} className="rounded-5">
+                       <ListItemButton onClick={()=>{history("Share")}} style={{color:"#05386b"}} className="rounded-5">
                            <ListItemIcon>
                                <ShareIcon sx={{ color:"#05386b" }}/>
                             </ListItemIcon>
                            <ListItemText primary="Share item"/>
                         </ListItemButton>
                         
-                       <ListItemButton style={{color:"#05386b"}} className="rounded-5">
+                       <ListItemButton onClick={()=>{history("Recent")}} style={{color:"#05386b"}} className="rounded-5">
                            <ListItemIcon>
                                <AccessTimeFilledIcon sx={{ color:"#05386b" }}/>
                             </ListItemIcon>
                            <ListItemText primary="Recent"/>
                         </ListItemButton>
 
-                       <ListItemButton style={{color:"#05386b"}} className="rounded-5">
+                       <ListItemButton onClick={()=>{history("Stared")}} style={{color:"#05386b"}} className="rounded-5">
                            <ListItemIcon>
                                <StarIcon sx={{ color:"#05386b" }}/>
                             </ListItemIcon>
@@ -202,7 +202,7 @@ const HomePage=()=>{
                     </List>
 
                     <List className="mt-3">
-                       <ListItemButton style={{color:"#05386b"}} className="rounded-5">
+                       <ListItemButton onClick={()=>{history("Stared")}} style={{color:"#05386b"}} className="rounded-5">
                            <ListItemIcon> 
                                <CloudIcon sx={{ color:"#05386b" }}/>
                             </ListItemIcon>
@@ -238,29 +238,27 @@ const HomePage=()=>{
                             />
                          </div>
                     </div>
-                    <SimpleBar className="rounded-top-4" style={{ height: "88.5vh",backgroundColor:"#EDF5E1",overflowX:"hidden"}}>
-                           <div className="row p-3">
-                             <div className="col-6">
-                                <h2 style={{fontWeight:"normal"}}>Welcome to vault</h2>
-                                <Breadcrumbs aria-label="breadcrumb">
-                                    <Link underline="hover" color="inherit" href="/">
-                                        MUI
-                                    </Link>
-                                    <Link
-                                        underline="hover"
-                                        color="inherit"
-                                        href="/material-ui/getting-started/installation/"
-                                    >
-                                        Core
-                                    </Link>
-                                    <Typography color="text.primary">Breadcrumbs</Typography>
-                                </Breadcrumbs>
-                             </div>
-                           </div>
-                           <div className="row">
-                                 <HomeSubPage/>
-                           </div>
-                    </SimpleBar>
+                      <SimpleBar className="rounded-top-4" style={{ height: "88.5vh",backgroundColor:"#EDF5E1",overflowX:"hidden"}}>
+                              <div className="row p-3">
+                                <div className="col-6">
+                                    <h2 style={{fontWeight:"normal"}}>Welcome to vault</h2>
+                                    <Breadcrumbs aria-label="breadcrumb">
+                                        <Link underline="hover" color="inherit" href="/">
+                                            MUI
+                                        </Link>
+                                        <Link
+                                            underline="hover"
+                                            color="inherit"
+                                            href="/material-ui/getting-started/installation/"
+                                        >
+                                            Core
+                                        </Link>
+                                        <Typography color="text.primary">Breadcrumbs</Typography>
+                                    </Breadcrumbs>
+                                </div>
+                              </div>
+                              <Outlet/>
+                        </SimpleBar>
                 </div>
            </div>
         </Container>

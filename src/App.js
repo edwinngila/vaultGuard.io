@@ -7,11 +7,16 @@ import { useEffect, useState } from "react";
 import SimpleSnackbar from "./Components/snackBar";
 import { Route, Routes, useNavigate } from "react-router-dom";
 import Forgotpassword from "./Auth/ForgotPassword";
-import HomePage from "./Pages/HomePage";
 import LandingPage from "./Pages/LandingPage";
 import ScreenLoader from "./Components/ScreenLoader";
 import Cookies from "js-cookie";
 import FormDialog from "./Components/ScreenDialog";
+import HomeSubPage from "./sub-pages/HomeSubPage";
+import MyDriveSubPage from "./sub-pages/MyDriveSubPage";
+import RecentSubPage from "./sub-pages/RecentSubPage";
+import ShareSubPage from "./sub-pages/ShareSubPage";
+import StaredSubPage from "./sub-pages/StaredSubPage";
+import HomePage from "./Pages/HomePage";
 
 function App() {
   const [open, setOpen] = useState(false);
@@ -67,9 +72,15 @@ function App() {
             <Routes>
                 <Route element={<SigninForm/>} path="/Signin" index />
                 <Route element={<SignupForm/>} path="/Signup"/>
-                <Route element={<HomePage/>} path="/HomePage"/>
                 <Route element={<LandingPage/>} path="/"/>                
                 <Route element={<Forgotpassword/>} path="/Forgotpassword"/>
+                <Route element={<HomePage/>} path="/HomePage">
+                    <Route index path='' element={<HomeSubPage/>}/>
+                    <Route path='MyDrive' element={<MyDriveSubPage/>}/>
+                    <Route path='Recent' element={<RecentSubPage/>}/>
+                    <Route path='Share' element={<ShareSubPage/>}/>
+                    <Route path='Stared' element={<StaredSubPage/>}/>
+                </Route>
             </Routes>
         </Progress.Provider>
     </SnackTost.Provider>

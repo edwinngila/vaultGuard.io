@@ -247,7 +247,6 @@ export const UploadPDFAction=(File,open, setOpen, setMessage, setSeverity,handle
 export const ListDirectories = async () => {
   try {
     const lsFiles=[];
-    const lsFolders=[];
     const storage = getStorage(app)
     const userId = Cookies.get("Uid")
     const listRef = ref(storage, userId);
@@ -257,12 +256,12 @@ export const ListDirectories = async () => {
     const folders = res.prefixes;
 
     for (const folder of folders) {
-      lsFiles.push({name:folder.name,size:folder.size})
+      lsFiles.push({name:folder.name})
     }
 
     for (const file of files) {
       const url = await getDownloadURL(file);
-      lsFiles.push({name:file.name, URL:url,size:file.size})
+      lsFiles.push({name:file.name, URL:url});
     }
 
     localStorage.setItem("files",JSON.stringify(lsFiles));
