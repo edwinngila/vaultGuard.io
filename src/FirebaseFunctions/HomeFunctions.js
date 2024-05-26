@@ -1,4 +1,4 @@
-import { getDownloadURL, getStorage, listAll, ref, uploadBytes, uploadString } from "firebase/storage";
+import { getDownloadURL, getMetadata, getStorage, listAll, ref, uploadBytes, uploadString } from "firebase/storage";
 import app from "../Server/Firebase";
 import Cookies from "js-cookie";
 
@@ -254,6 +254,13 @@ export const ListDirectories = async () => {
 
     const files = res.items;
     const folders = res.prefixes;
+    getMetadata(listRef)
+    .then((metadata) => {
+      console.log(metadata)
+    })
+    .catch((error) => {
+      console.log(error)
+    });
 
     for (const folder of folders) {
       lsFiles.push({name:folder.name})
@@ -261,8 +268,13 @@ export const ListDirectories = async () => {
 
     for (const file of files) {
       const url = await getDownloadURL(file);
-      lsFiles.push({name:file.name, URL:url});
+      const metadata = await getMetadata(file);
+      const formattedSize = formatBytes(metadata.size);
+      const formattedDate = formatDate(metadata.timeCreated);
+      lsFiles.push({name:file.name, URL:url,size: formattedSize,date:formattedDate});
+      console.log(metadata)
     }
+    console.log(lsFiles);
 
     localStorage.setItem("files",JSON.stringify(lsFiles));
 
@@ -271,4 +283,16 @@ export const ListDirectories = async () => {
   }
 }
 
+const formatBytes = (bytes, decimals = 2) => {
+  if (bytes === 0) return '0 Bytes';
+  const k = 1024;
+  const dm = decimals < 0 ? 0 : decimals;
+  const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
+  const i = Math.floor(Math.log(bytes) / Math.log(k));
+  return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
+}
+const formatDate = (timestamp) => {
+  const date = new Date(timestamp);
+  return date.toLocaleString();
+}
 

@@ -13,25 +13,14 @@ const HomeSubPage =()=>{
     const{handleClose,handleOpen}=useContext(Progress);
     const [files,setFiles]=useState([]);
 
-    const handleDownload = () => {
-        // Logic to generate or fetch the file to be downloaded
-    
-        // Example: Generating a text file
-        const content = 'This is the content of the file.';
-        const fileBlob = new Blob([content], { type: 'text/plain' });
-        const fileUrl = URL.createObjectURL(fileBlob);
-    
-        // Create a temporary link element
-        const link = document.createElement('a');
-        link.href = fileUrl;
-        link.download = 'example.txt';
-    
-        // Simulate a click on the link to trigger the download
+    const DownloadImage= async(url,name)=>{
+        const link = document.createElement("a");
+        link.href=url;
+        link.download=name;
+        document.body.appendChild(link);
         link.click();
-    
-        // Clean up the temporary link
-        URL.revokeObjectURL(fileUrl);
-      };
+        document.body.removeChild(link);
+    }
 
     useEffect(
         ()=>{
@@ -59,12 +48,23 @@ const HomeSubPage =()=>{
             sortable:true
         },
         {
+            name:"size",
+            selector: row=>row.size,
+            sortable:true,
+            width:"150px",
+        },
+        {
+            name:"Date created",
+            selector: row=>row.date,
+            sortable:true
+        },
+        {
             name:"Action",
             selector: row=>
                           <div>
                               <span style={{cursor:"pointer"}} className="m-1"><DeleteIcon/></span>
                               <span style={{cursor:"pointer"}} className="m-1"><StarIcon/></span>
-                              <span style={{cursor:"pointer"}} className="m-1"><SaveAltIcon/></span>
+                              <span onClick={()=>{DownloadImage(row.URL,row.name)}} style={{cursor:"pointer"}} className="m-1"><SaveAltIcon/></span>
                           </div>,
             width:"300px",
             sortable:true

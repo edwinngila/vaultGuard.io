@@ -17,6 +17,7 @@ import RecentSubPage from "./sub-pages/RecentSubPage";
 import ShareSubPage from "./sub-pages/ShareSubPage";
 import StaredSubPage from "./sub-pages/StaredSubPage";
 import HomePage from "./Pages/HomePage";
+import OnlineStatus from "./Components/OnlineStatus";
 
 function App() {
   const [open, setOpen] = useState(false);
@@ -24,6 +25,8 @@ function App() {
   const [severity,setSeverity]=useState();
   const [OpenLoader, setOpenLoader] = useState(false);
   const [OpenDialog,setOpenDialog]= useState(false);
+  const [isOnline, setIsOnline] = useState(navigator.onLine);
+  const [showOnline,setShowOnline] = useState(false);
 
   const handleDialogOpen = () => {
     setOpenDialog(true);
@@ -33,6 +36,14 @@ function App() {
     setOpenDialog(false);
   };
 
+  const statusDialogOpen = () => {
+    setShowOnline(true);
+  };
+
+  const statusDialogClose = () => {
+    setShowOnline(false);
+  };
+
   const handleClose = () => {
     setOpenLoader(false);
   };
@@ -40,6 +51,10 @@ function App() {
   const handleOpen = () => {
       setOpenLoader(true);
   };
+  const statusBox={
+    showOnline,isOnline,
+    statusDialogOpen,statusDialogClose
+  }
 
   const snackBarValues={
     open, setOpen,
@@ -62,13 +77,28 @@ function App() {
     if (rememberMeCookie === 'true' && usernameCookie) {
         history("/HomePage")
     }
-},[]);
+ },[]);
+
+  useEffect(() => {
+    const handleOnline = () => setIsOnline(true);
+    const handleOffline = () => setIsOnline(false);
+
+    window.addEventListener('online', handleOnline);
+    window.addEventListener('offline', handleOffline);
+
+    return () => {
+      window.removeEventListener('online', handleOnline);
+      window.removeEventListener('offline', handleOffline);
+    };
+  }, []);
   return (
-    <SnackTost.Provider value={snackBarValues}>
+    <div style={{overflowY:"hidden"}}>
+      <SnackTost.Provider value={snackBarValues}>
       <Progress.Provider value={ScreenPops}>
           <FormDialog/>
           <ScreenLoader/>
           <SimpleSnackbar/>
+          <OnlineStatus/>
             <Routes>
                 <Route element={<SigninForm/>} path="/Signin" index />
                 <Route element={<SignupForm/>} path="/Signup"/>
@@ -83,7 +113,8 @@ function App() {
                 </Route>
             </Routes>
         </Progress.Provider>
-    </SnackTost.Provider>
+     </SnackTost.Provider>
+    </div>
   );
 }
 

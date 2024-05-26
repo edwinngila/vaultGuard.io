@@ -1,3 +1,18 @@
 .simplebar-placeholder{
     display: none;
 }
+.MuiPaper-root{
+    background-color: #86D5A7 !important;
+    width: 340px;
+}
+.buggerMenu{
+    display: none;
+}
+@media only screen and (max-width:992px){
+    .sideNav{
+        display: none;
+    }
+    .buggerMenu{
+        display: block;
+    }
+}
