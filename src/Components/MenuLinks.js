@@ -190,8 +190,8 @@ export const MenuLinks=()=>{
                         </ListItemButton>
                        <div className="col-12">
                           <div className="row mt-4 p-2">
-                            <LinearProgress variant="determinate" value={50} style={{height:"12px",width:"100%",borderRadius:"10px",backgroundColor:""}}/>
-                            <p><span>40MB</span> out of <span>1GB</span></p>
+                            <LinearProgress variant="determinate" value={JSON.parse(localStorage.getItem('ProgressParsecent'))} style={{height:"12px",width:"100%",borderRadius:"10px",backgroundColor:""}}/>
+                            <p><span>{JSON.parse(localStorage.getItem('spaceUsed'))}</span> out of <span>1GB</span></p>
                           </div>
                        </div>
                     </List>

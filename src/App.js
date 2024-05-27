@@ -18,6 +18,7 @@ import ShareSubPage from "./sub-pages/ShareSubPage";
 import StaredSubPage from "./sub-pages/StaredSubPage";
 import HomePage from "./Pages/HomePage";
 import OnlineStatus from "./Components/OnlineStatus";
+import { calculateSpace } from "./FirebaseFunctions/calculateSpace";
 
 function App() {
   const [open, setOpen] = useState(false);
@@ -72,10 +73,11 @@ function App() {
   useEffect(() => {
     const rememberMeCookie = Cookies.get("RememberMe");
     const usernameCookie = Cookies.get('Name');
-    
+    calculateSpace();  
 
     if (rememberMeCookie === 'true' && usernameCookie) {
         history("/HomePage")
+        calculateSpace();
     }
  },[]);
 
