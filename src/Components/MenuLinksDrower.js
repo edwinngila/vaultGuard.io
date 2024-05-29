@@ -1,4 +1,4 @@
-import WebLogo from "../Img/Vault Guard (1).svg"
+import WebLogo from "../Img/VaultGuard_.png"
 import { Button, LinearProgress, List, ListItemButton, ListItemIcon, ListItemText, Menu, styled } from "@mui/material";
 import AddIcon from '@mui/icons-material/Add';
 import HomeIcon from '@mui/icons-material/Home';
@@ -21,7 +21,7 @@ import { useNavigate } from "react-router-dom";
 import { Progress } from "../UseContext/ScreenLoader";
 import { UploadAudioAction, UploadFileAction, UploadImageAction, UploadPDFAction } from "../FirebaseFunctions/HomeFunctions";
 
-export const MenuLinks=()=>{
+export const MenuLinksDrower=()=>{
     const { open, setOpen, setMessage, setSeverity } = useContext(SnackTost);
     const{handleClose,handleOpen,handleDialogOpen}=useContext(Progress);
     const history = useNavigate();
@@ -50,12 +50,12 @@ export const MenuLinks=()=>{
            <div className="col-10 ps-3">
            <div className="row">
                     <div className="row">
-                        <img width={"100px"} height={"100xp"} src={WebLogo} alt="img"></img>
+                        <img width={"70px"} height={"96xp"} src={WebLogo} alt="img"></img>
                     </div>
                      <div>
                     <Button
                      style={{background:"#379683"}} 
-                     className="mt-4 p-4 rounded-4" 
+                     className="mt-3 p-4 rounded-4" 
                      startIcon={<AddIcon />} 
                      variant="contained"
 
@@ -189,7 +189,7 @@ export const MenuLinks=()=>{
                            <ListItemText primary="Logout"/>
                         </ListItemButton>
                        <div className="col-12">
-                          <div className="row mt-4 p-2">
+                          <div className="row mt-4 ml-2 p-3 d-flex justify-content-center align-items-center">
                             <LinearProgress className="ml-3" variant="determinate" value={JSON.parse(localStorage.getItem('ProgressParsecent'))} style={{height:"12px",width:"100%",borderRadius:"10px",backgroundColor:""}}/>
                             <p><span>{JSON.parse(localStorage.getItem('spaceUsed'))}</span> out of <span>1GB</span></p>
                           </div>

@@ -19,6 +19,7 @@ import StaredSubPage from "./sub-pages/StaredSubPage";
 import HomePage from "./Pages/HomePage";
 import OnlineStatus from "./Components/OnlineStatus";
 import { calculateSpace } from "./FirebaseFunctions/calculateSpace";
+import ViewFolder from "./sub-pages/ViewFolder";
 
 function App() {
   const [open, setOpen] = useState(false);
@@ -112,6 +113,7 @@ function App() {
                     <Route path='Recent' element={<RecentSubPage/>}/>
                     <Route path='Share' element={<ShareSubPage/>}/>
                     <Route path='Stared' element={<StaredSubPage/>}/>
+                    <Route path='ViewFolder/:items' element={<ViewFolder/>}/>
                 </Route>
             </Routes>
         </Progress.Provider>

@@ -45,7 +45,7 @@ const SigninForm =()=>{
     return(
         <Container fluid style={{backgroundColor:"#5cdb95",height:"100vh"}} className="d-flex justify-content-center align-content-center ">
             <div className="row d-flex align-items-center justify-content-center">
-                 <Form style={{backgroundColor:"#379683"}} onSubmit={(e)=>{handleSubmit(e,email,Password,rememberMe,handleClose,handleOpen,history)}} className="col-8 p-5 rounded-2">
+                 <Form style={{backgroundColor:"#379683"}} onSubmit={(e)=>{handleSubmit(e,email,Password,rememberMe,handleClose,handleOpen,history)}} className="col-11 col-sm-8 col-md-8 col-lg-8 col-xl-8 p-5 rounded-2">
                     <div className="row">
                         <h2 className="mt-1" style={{color:"#edf5e1"}}>Login in to your account</h2>
                         <h6 style={{color:"#edf5e1"}}>Welcome back! Please enter your details</h6>

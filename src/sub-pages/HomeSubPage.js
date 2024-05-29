@@ -6,21 +6,32 @@ import PersonAddAltIcon from '@mui/icons-material/PersonAddAlt';
 import FolderIcon from '@mui/icons-material/Folder';
 import StarIcon from '@mui/icons-material/Star';
 import { useContext, useEffect, useState } from "react";
-import { ListDirectories } from "../FirebaseFunctions/HomeFunctions";
+import { DeleteFile, ListDirectories } from "../FirebaseFunctions/HomeFunctions";
 import { Progress } from "../UseContext/ScreenLoader";
+import { useNavigate } from "react-router-dom";
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 
 const HomeSubPage =()=>{
     const{handleClose,handleOpen}=useContext(Progress);
     const [files,setFiles]=useState([]);
+    const history=useNavigate();
 
-    const DownloadImage= async(url,name)=>{
-        const link = document.createElement("a");
-        link.href=url;
-        link.download=name;
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-    }
+    const handleDownload = (fileData,fileName) => {
+        if (fileData) {
+            const fileUrl = window.URL.createObjectURL(fileData);
+            const link = document.createElement('a');
+            link.href = fileUrl;
+            link.setAttribute('download', fileName);
+            document.body.appendChild(link);
+            link.click();
+            window.URL.revokeObjectURL(fileUrl);
+            document.body.removeChild(link);
+          }
+    };
+
+    const handleRowClick = (row) => {
+        history("Recent");
+      };
 
     useEffect(
         ()=>{
@@ -62,9 +73,10 @@ const HomeSubPage =()=>{
             name:"Action",
             selector: row=>
                           <div>
-                              <span style={{cursor:"pointer"}} className="m-1"><DeleteIcon/></span>
+                              <span onClick={()=>{DeleteFile(row.name)}} style={{cursor:"pointer"}} className="m-1"><DeleteIcon/></span>
                               <span style={{cursor:"pointer"}} className="m-1"><StarIcon/></span>
-                              <span onClick={()=>{DownloadImage(row.URL,row.name)}} style={{cursor:"pointer"}} className="m-1"><SaveAltIcon/></span>
+                              <span onClick={()=>{handleDownload(row.URL,row.name)}} style={{cursor:"pointer"}} className="m-1"><SaveAltIcon/></span>
+                              <span onClick={()=>{history(`ViewFolder/${row.name}`)}} style={{cursor:"pointer"}} className="m-1"><ArrowForwardIcon/></span>
                           </div>,
             width:"300px",
             sortable:true
@@ -95,6 +107,7 @@ const HomeSubPage =()=>{
                customStyles={myStyle}
                pagination
                fixedHeader
+               onRowClick={handleRowClick}
             ></DataTable>
     )
 }

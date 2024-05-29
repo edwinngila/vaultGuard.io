@@ -1,6 +1,7 @@
-import { getDownloadURL, getMetadata, getStorage, listAll, ref, uploadBytes, uploadString } from "firebase/storage";
+import { deleteObject, getDownloadURL, getMetadata, getStorage, listAll, ref, uploadBytes, uploadString } from "firebase/storage";
 import app from "../Server/Firebase";
 import Cookies from "js-cookie";
+import FolderIcon from '@mui/icons-material/Folder';
 
 // import { addDoc, collection, getFirestore } from "firebase/firestore";
 // import CryptoJS from 'crypto-js';
@@ -43,13 +44,13 @@ export const newFolderAction=(newFolder,open, setOpen, setMessage, setSeverity,h
     const folderRef = ref(storage,`${userId}/${newFolder}/${placeholderFileName}`);
     uploadString(folderRef, placeholderContent)
     .then(() => {
-      handleClose()
-      setOpen(!open)
-      setMessage("New folder created successfully.")
-      setSeverity("success")
+      handleClose();
+      setOpen(!open);
+      setMessage("New folder created successfully.");
+      setSeverity("success");
     })
     .catch((error) => {
-      handleClose()
+      handleClose();
       setOpen(!open)
       setMessage(`Error creating empty new folder:${error}`)
       setSeverity("error")
@@ -295,4 +296,33 @@ const formatDate = (timestamp) => {
   const date = new Date(timestamp);
   return date.toLocaleString();
 }
+export const DeleteFile =(fileName)=>{
+  const storage =getStorage(app);
+  const userId = Cookies.get("Uid");
+  var fileRef = ref(storage,`${userId}/${fileName}`);
+  // Delete the file
+  deleteObject(fileRef).then(() => {
+    console.log("File deleted successfully")
+  }).catch((error) => {
+    console.log("Uh-oh, an error occurred!")
+  });
+}
+export const NavigateFolders =async(path)=>{
+  const lsFiles=[];
+  const storage = getStorage(app)
+  const userId = Cookies.get("Uid")
+  const listRef = ref(storage,`${userId}/${path}`);
+  const res = await listAll(listRef);
+  const files = res.items;
 
+  for (const file of files) {
+    const url = await getDownloadURL(file);
+    const metadata = await getMetadata(file);
+    const formattedSize = formatBytes(metadata.size);
+    const formattedDate = formatDate(metadata.timeCreated);
+    lsFiles.push({name:file.name, URL:url,size: formattedSize,date:formattedDate});
+  }
+  localStorage.setItem("subFiles",JSON.stringify(lsFiles));
+  console.log(path,res);
+
+}

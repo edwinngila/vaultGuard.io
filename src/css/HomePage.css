@@ -2,8 +2,7 @@
     display: none;
 }
 .MuiPaper-root{
-    background-color: #86D5A7 !important;
-    width: 340px;
+    width: 300px;
 }
 .buggerMenu{
     display: none;

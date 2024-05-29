@@ -7,6 +7,7 @@ import "../css/HomePage.css";
 import menu from "../Img/list.png"
 import { MenuLinks } from "../Components/MenuLinks";
 import { useState } from "react";
+import { MenuLinksDrower } from "../Components/MenuLinksDrower";
 
 
 const HomePage=()=>{
@@ -41,7 +42,7 @@ const HomePage=()=>{
                                 <div className="col-2 col-sm-3 col-md-2 col-lg-0 col-xl-0 d-flex justify-content-center align-content-center">
                                    <img onClick={()=>{setOpenDrower(!openDrower)}} style={{cursor:"pointer"}} className="mt-3 buggerMenu" height={"30px"} width={"30px"} src={menu} alt="img"></img>
                                    <Drawer className="p-2" style={{width:"300px",backgroundColor:"#86D5A7"}} open={openDrower} onClose={()=>{setOpenDrower(!openDrower)}}>
-                                      <MenuLinks/> 
+                                      <MenuLinksDrower/> 
                                    </Drawer>
                                 </div>
                                 <div className="col-10 col-sm-9 col-md-10 col-lg-12 col-xl-12">
