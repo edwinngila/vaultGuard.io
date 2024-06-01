@@ -15,3 +15,6 @@
         display: block;
     }
 }
+.hoverAction::hover{
+    color: none;
+}

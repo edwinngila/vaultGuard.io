@@ -9,12 +9,24 @@ export const calculateSpace= async()=>{
     const listRef = ref(storage, userId);
     const res = await listAll(listRef);
     const files = res.items;
+    const folders = res.prefixes;
     let total = 0;
 
     for (const file of files) {
         const metadata = await getMetadata(file);
         total = metadata.size + total
-        console.log(total);
+    }
+    for (const folder of folders) {
+        console.log(folder);
+        const listRef = ref(storage, `${userId}/${folder.name}`);
+        const res = await listAll(listRef);
+        const files = res.items;
+        
+        for (const file of files) {
+            const metadata = await getMetadata(file);
+            total = metadata.size + total
+        }
+       
     }
     localStorage.setItem('spaceUsed',JSON.stringify(formatBytes(total)))
     localStorage.setItem('ProgressParsecent',JSON.stringify(bytesToMegabytes(total)))
@@ -32,5 +44,5 @@ const bytesToMegabytes=(bytes)=>{
     const Gigabyte = Megabytes / 1024;
     const parsecent = Gigabyte * 100;
     return parsecent.toFixed(2);
-  }
+}
   

@@ -1,6 +1,7 @@
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import app from "../Server/Firebase";
 import Cookies from "js-cookie";
+import { calculateSpace } from "./calculateSpace";
 
 export const HandleSubmit=(email, password,setMessage, setSeverity,open, setOpen,rememberMe,handleClose,handleOpen,history)=>{
     handleOpen()
@@ -20,7 +21,8 @@ export const HandleSubmit=(email, password,setMessage, setSeverity,open, setOpen
            Cookies.set('Email',user.email,{expires:7})
            Cookies.set('Name',user.displayName,{expires:7})
            Cookies.set('AccessToken',user.refreshToken,{expires:7})
-           Cookies.set('Uid',user.providerId,{expires:7})
+           Cookies.set('Uid',user.uid,{expires:7})
+           calculateSpace();
            history("/HomePage")
         }
         else{
@@ -29,6 +31,7 @@ export const HandleSubmit=(email, password,setMessage, setSeverity,open, setOpen
             Cookies.set('Name',user.displayName)
             Cookies.set('AccessToken',user.refreshToken)
             Cookies.set('Uid',user.uid)
+            calculateSpace();
             history("/HomePage");
         }
         //call the snack bar from context
@@ -44,7 +47,6 @@ export const HandleSubmit=(email, password,setMessage, setSeverity,open, setOpen
         setOpen(!open)
         setMessage(errorCode)
         setSeverity("error")
-        console.log(errorCode);
       });
 }
 export default HandleSubmit;

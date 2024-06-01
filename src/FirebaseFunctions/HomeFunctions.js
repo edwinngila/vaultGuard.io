@@ -323,6 +323,38 @@ export const NavigateFolders =async(path)=>{
     lsFiles.push({name:file.name, URL:url,size: formattedSize,date:formattedDate});
   }
   localStorage.setItem("subFiles",JSON.stringify(lsFiles));
-  console.log(path,res);
 
 }
+
+// Get the size of a folder
+async function getFolderSize(folderPath) {
+  try {
+    const storage = getStorage(app)
+    const folderRef = storage.child(folderPath);
+    const files = await folderRef.listAll();
+    let totalSize = 0;
+
+    for (const file of files.items) {
+      const fileSnapshot = await file.getMetadata();
+      totalSize += fileSnapshot.size;
+    }
+
+    return totalSize;
+  } catch (error) {
+    console.error('Error getting folder size:', error);
+    throw error;
+  }
+}
+
+// Example usage
+const runFanction=()=>{
+  const userId = Cookies.get("Uid");
+  getFolderSize(userId)
+    .then((size) => {
+      console.log(`Folder size: ${size} bytes`);
+    })
+    .catch((error) => {
+      console.error('Error:', error);
+    });
+}
+runFanction();

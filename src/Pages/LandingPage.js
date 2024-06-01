@@ -34,7 +34,7 @@ const LandingPage=()=>{
                             <h1>online back up services</h1>
                             <h1>Store your data with us today</h1>
                             <p className="mt-3" style={{fontSize:"20px"}}>Vault Guard is an advanced online backup system designed to offer users seamless data storage solutions. Through this platform, users can effortlessly create an accounts and securely upload their data to an online Vault</p>
-                            <Button style={{backgroundColor:"#379683"}} className="col-5 mt-4 m-3 p-3 rounded-4" variant="contained">Get started</Button>
+                            <Button href="/Signup" style={{backgroundColor:"#379683"}} className="col-5 mt-4 m-3 p-3 rounded-4" variant="contained">Get started</Button>
                        </div>
                     </div>
                     <div className="col-6 d-flex align-content-end justify-content-end">

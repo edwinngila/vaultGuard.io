@@ -1,24 +1,31 @@
-import { Container } from "react-bootstrap";
+import { Container, Dropdown } from "react-bootstrap";
 import SimpleBar from "simplebar-react";
 import {Avatar, Breadcrumbs, Drawer, InputAdornment, Menu, MenuItem, TextField, Typography, styled } from "@mui/material";
-import { Link, Outlet } from "react-router-dom";
+import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
 import SearchIcon from '@mui/icons-material/Search';
 import "../css/HomePage.css";
 import menu from "../Img/list.png"
 import { MenuLinks } from "../Components/MenuLinks";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { MenuLinksDrower } from "../Components/MenuLinksDrower";
+import Cookies from "js-cookie";
+import { SnackTost } from "../UseContext/Hook";
+import { Progress } from "../UseContext/ScreenLoader";
+import SignOut from "../FirebaseFunctions/SignoutFunctions";
+import LogoutIcon from '@mui/icons-material/Logout';
+import PersonIcon from '@mui/icons-material/Person';
+import DeleteIcon from '@mui/icons-material/Delete';
+import { pink } from '@mui/material/colors';
 
 
 const HomePage=()=>{
   const [openDrower,setOpenDrower]=useState(false);
-    // const handleFileChange = (e) => {
-    //     const file = e.target.files[0];
-    //     if (file) {
-    //       console.log("File uploaded:", file);
-    //       setUploadFile(file);
-    //     }
-    //   };
+  const userId = Cookies.get("Uid")
+  const location = useLocation();
+  const history = useNavigate();
+  const { open, setOpen, setMessage, setSeverity } = useContext(SnackTost);
+  const{handleClose,handleOpen,handleDialogOpen}=useContext(Progress);
+   
     const RoundedTextField = styled(TextField)({
         '& .MuiOutlinedInput-root': {
           borderRadius: '30px',
@@ -59,22 +66,23 @@ const HomePage=()=>{
                              </div>
                          </div>
                          <div className="col-4 d-flex justify-content-end align-content-end">
-                            <Avatar
-                                alt="Remy Sharp"
-                                src="/static/images/avatar/1.jpg"
-                                sx={{ width: 56, height: 56 }}
-                            />
-                             <Menu
-                              id="basic-menu"
-                              open={false}
-                              MenuListProps={{
-                                'aria-labelledby': 'basic-button',
-                              }}
-                            >
-                                <MenuItem>Profile</MenuItem>
-                                <MenuItem>My account</MenuItem>
-                                <MenuItem>Logout</MenuItem>
-                            </Menu>
+                            <Dropdown>
+                              <Dropdown.Toggle drop style={{backgroundColor:"transparent",border:"0px"}} id="dropdown-basic">
+                                    <Avatar
+                                      alt="Remy Sharp"
+                                      src="/static/images/avatar/1.jpg"
+                                      sx={{ width: 50, height: 50 }}
+                                      style={{cursor:"pointer"}}
+                                   />
+                              </Dropdown.Toggle>
+                        
+                              <Dropdown.Menu className="hoverAction">
+                                <Dropdown.Item><PersonIcon/> Upload user photo</Dropdown.Item>
+                                <Dropdown.Item><DeleteIcon/> Delete account</Dropdown.Item>
+                                <Dropdown.Divider />
+                                <Dropdown.Item onClick={()=>{SignOut(setOpen,open,setMessage,setSeverity,handleClose,handleOpen,history)}}><LogoutIcon/> Logout</Dropdown.Item>
+                              </Dropdown.Menu>
+                           </Dropdown>
                          </div>
                     </div>
                       <SimpleBar className="rounded-top-4" style={{ height: "88.5vh",backgroundColor:"#EDF5E1",overflowX:"hidden"}}>
@@ -82,17 +90,16 @@ const HomePage=()=>{
                                 <div className="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
                                     <h2 style={{fontWeight:"normal"}}>Welcome to vault</h2>
                                     <Breadcrumbs aria-label="breadcrumb">
-                                        <Link underline="hover" color="inherit" href="/">
-                                            MUI
-                                        </Link>
-                                        <Link
+                                          <Link
                                             underline="hover"
                                             color="inherit"
-                                            href="/material-ui/getting-started/installation/"
-                                        >
-                                            Core
-                                        </Link>
-                                        <Typography color="text.primary">Breadcrumbs</Typography>
+                                            href={location.pathname}
+                                          >
+                                            {
+                                             
+                                            }
+                                          </Link>
+                                          <Typography color="text.primary">Breadcrumbs</Typography>
                                     </Breadcrumbs>
                                 </div>
                               </div>
