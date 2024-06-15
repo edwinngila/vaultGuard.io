@@ -34,7 +34,7 @@ import FolderIcon from '@mui/icons-material/Folder';
 //   console.log(decryptedData); 
 // }
 
-export const newFolderAction=(newFolder,open, setOpen, setMessage, setSeverity,handleClose,handleOpen)=>{
+export const newFolderAction=(newFolder,open, setOpen, setMessage, setSeverity,handleClose,handleOpen,history)=>{
     handleOpen()
     const storage =getStorage(app)
     const userId = Cookies.get("Uid")
@@ -48,6 +48,7 @@ export const newFolderAction=(newFolder,open, setOpen, setMessage, setSeverity,h
       setOpen(!open);
       setMessage("New folder created successfully.");
       setSeverity("success");
+      history(0);
     })
     .catch((error) => {
       handleClose();
@@ -57,7 +58,7 @@ export const newFolderAction=(newFolder,open, setOpen, setMessage, setSeverity,h
     });
 };
 
-export const UploadFileAction=(File,open, setOpen, setMessage, setSeverity,handleClose,handleOpen)=>{
+export const UploadFileAction=(File,open, setOpen, setMessage, setSeverity,handleClose,handleOpen,history)=>{
     handleOpen()
     const allowedTypes =["audio/", "image/", "text/"];
     const fileType = File.type;
@@ -88,6 +89,7 @@ export const UploadFileAction=(File,open, setOpen, setMessage, setSeverity,handl
             setOpen(!open);
             setMessage("Image uploaded successfully.");
             setSeverity("success");
+            history(0)
           })
           .catch((uploadError) => {
             handleClose();
@@ -104,7 +106,7 @@ export const UploadFileAction=(File,open, setOpen, setMessage, setSeverity,handl
     });
 };
 
-export const UploadAudioAction=(File,open, setOpen, setMessage, setSeverity,handleClose,handleOpen)=>{
+export const UploadAudioAction=(File,open, setOpen, setMessage, setSeverity,handleClose,handleOpen,history)=>{
     handleOpen()
     const allowedTypes ="audio/";
     const fileType = File.type;
@@ -135,6 +137,7 @@ export const UploadAudioAction=(File,open, setOpen, setMessage, setSeverity,hand
               setOpen(!open);
               setMessage("Image uploaded successfully.");
               setSeverity("success");
+              history(0)
             })
             .catch((uploadError) => {
               handleClose();
@@ -152,7 +155,7 @@ export const UploadAudioAction=(File,open, setOpen, setMessage, setSeverity,hand
 
 };
 
-export const UploadImageAction=async(File,open, setOpen, setMessage, setSeverity,handleClose,handleOpen)=>{
+export const UploadImageAction=async(File,open, setOpen, setMessage, setSeverity,handleClose,handleOpen,history)=>{
     handleOpen()
     const allowedTypes ="image/";
     const fileType = File.type;
@@ -183,6 +186,7 @@ export const UploadImageAction=async(File,open, setOpen, setMessage, setSeverity
               setOpen(!open);
               setMessage("Image uploaded successfully.");
               setSeverity("success");
+              history(0)
             })
             .catch((uploadError) => {
               handleClose();
@@ -200,7 +204,7 @@ export const UploadImageAction=async(File,open, setOpen, setMessage, setSeverity
 
 };
 
-export const UploadPDFAction=(File,open, setOpen, setMessage, setSeverity,handleClose,handleOpen)=>{
+export const UploadPDFAction=(File,open, setOpen, setMessage, setSeverity,handleClose,handleOpen,history)=>{
     handleOpen()
     const fileType = File.type;
     const storage =getStorage(app)
@@ -229,6 +233,7 @@ export const UploadPDFAction=(File,open, setOpen, setMessage, setSeverity,handle
               setOpen(!open);
               setMessage("Image uploaded successfully.");
               setSeverity("success");
+              history(0)
             })
             .catch((uploadError) => {
               handleClose();

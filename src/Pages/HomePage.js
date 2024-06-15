@@ -6,7 +6,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import "../css/HomePage.css";
 import menu from "../Img/list.png"
 import { MenuLinks } from "../Components/MenuLinks";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { MenuLinksDrower } from "../Components/MenuLinksDrower";
 import Cookies from "js-cookie";
 import { SnackTost } from "../UseContext/Hook";
@@ -16,6 +16,7 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import PersonIcon from '@mui/icons-material/Person';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { pink } from '@mui/material/colors';
+import { calculateSpace } from "../FirebaseFunctions/calculateSpace";
 
 
 const HomePage=()=>{
@@ -36,6 +37,9 @@ const HomePage=()=>{
           },
         },
       });
+      useEffect(()=>{
+        calculateSpace();
+      },[])
     return(
         <Container style={{overflowX:"hidden"}} fluid>
            <div style={{height:"100vh"}} className="row">

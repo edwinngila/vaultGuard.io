@@ -100,7 +100,8 @@ export const MenuLinks=()=>{
                                 <VisuallyHiddenInput onChange={
                                   (e)=>{
                                     setOpenMenu(false);
-                                    UploadFileAction(e.target.files[0],open, setOpen, setMessage, setSeverity,handleClose,handleOpen)
+                                    UploadFileAction(e.target.files[0],open, setOpen, setMessage, setSeverity,handleClose,handleOpen,history);
+                                    // history(0)
                                   }} type="file" accept="audio/*, image/*, text/*"/>
                             </ListItemButton>
 
@@ -112,7 +113,8 @@ export const MenuLinks=()=>{
                                <VisuallyHiddenInput onChange={
                                 (e)=>{
                                   setOpenMenu(false);
-                                  UploadAudioAction(e.target.files[0],open, setOpen, setMessage, setSeverity,handleClose,handleOpen)
+                                  UploadAudioAction(e.target.files[0],open, setOpen, setMessage, setSeverity,handleClose,handleOpen,history);
+                                  // history(0);
                                }} type="file" accept="audio/*" />
                             </ListItemButton>
 
@@ -124,7 +126,8 @@ export const MenuLinks=()=>{
                                <VisuallyHiddenInput onChange={
                                 (e)=>{
                                   setOpenMenu(false);
-                                  UploadImageAction(e.target.files[0],open, setOpen, setMessage, setSeverity,handleClose,handleOpen)
+                                  UploadImageAction(e.target.files[0],open, setOpen, setMessage, setSeverity,handleClose,handleOpen,history);
+                                  // history(0);
                                 }} type="file" accept="image/*" />
                             </ListItemButton>
 
@@ -136,7 +139,8 @@ export const MenuLinks=()=>{
                                <VisuallyHiddenInput onChange={
                                 (e)=>{
                                   setOpenMenu(false);
-                                  UploadPDFAction(e.target.files[0],open, setOpen, setMessage, setSeverity,handleClose,handleOpen)
+                                  UploadPDFAction(e.target.files[0],open, setOpen, setMessage, setSeverity,handleClose,handleOpen,history);
+                                  // history(0);
                                   }} type="file" accept="application/pdf, image/*"/>
                             </ListItemButton>
                         </List>

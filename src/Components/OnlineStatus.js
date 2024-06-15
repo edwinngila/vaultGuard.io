@@ -1,14 +1,24 @@
 import { Dialog, DialogContent, DialogContentText, DialogTitle } from "@mui/material";
 import offline from "../Video/OfflineAnimation.gif";
 import online from "../Video/connected.gif";
-import { Progress } from "../UseContext/ScreenLoader";
-import React from "react";
+// import { Progress } from "../UseContext/ScreenLoader";
+import React, { useEffect, useState } from "react";
 
 export default function OnlineStatus() {
-  const{showOnline,isOnline, statusDialogOpen,statusDialogClose}=React.useContext(Progress);
+  // const{showOnline,isOnline, statusDialogOpen,statusDialogClose}=React.useContext(Progress);
+  const [isOnline,setIsOnline] = useState(navigator.onLine);
+
+  const handleCheck = () =>{
+    setIsOnline(navigator.onLine)
+    console.log(isOnline)
+  }
+  useEffect(()=>{
+    window.addEventListener('online',handleCheck)
+    window.addEventListener('offline',handleCheck)
+  },[])
     return (
         <Dialog
-          open={showOnline}
+          open={true}
           fullWidth
           maxWidth={'xs'}
         >
