@@ -8,13 +8,19 @@ export default function OnlineStatus() {
   // const{showOnline,isOnline, statusDialogOpen,statusDialogClose}=React.useContext(Progress);
   const [isOnline,setIsOnline] = useState(navigator.onLine);
 
-  const handleCheck = () =>{
+  const handleCheck = (status) =>{
+    if(status){
+      setTimeout(function() {
+         setIsOnline(navigator.onLine)
+      }, 5000);
+      console.log(isOnline)
+    }
     setIsOnline(navigator.onLine)
-    console.log(isOnline)
+   
   }
   useEffect(()=>{
-    window.addEventListener('online',handleCheck)
-    window.addEventListener('offline',handleCheck)
+    window.addEventListener('online',handleCheck(true))
+    window.addEventListener('offline',handleCheck(false))
   },[])
     return (
         <Dialog
@@ -25,17 +31,6 @@ export default function OnlineStatus() {
           <DialogContent>
                  <DialogContentText>
                   {isOnline?
-                  <div className="row">
-                    <div className="col-5">
-                      <img width={"120px"} height={"120px"} src={offline} alt="img"></img>
-                    </div>
-                    <div className="col-7">
-                        <div className="row mt-4">
-                            <h3>You are offline!!</h3>
-                            <p style={{fontSize:"15px"}}>Check your internet connection</p>
-                        </div>
-                    </div>
-                  </div>:
                    <div className="row">
                    <div className="col-4">
                      <img width={"120px"} height={"120px"} src={online} alt="img"></img>
@@ -46,6 +41,17 @@ export default function OnlineStatus() {
                            <p style={{fontSize:"15px"}}>Welcome back</p>
                        </div>
                    </div>
+                  </div>:
+                  <div className="row">
+                    <div className="col-5">
+                      <img width={"120px"} height={"120px"} src={offline} alt="img"></img>
+                    </div>
+                    <div className="col-7">
+                        <div className="row mt-4">
+                            <h3>You are offline!!</h3>
+                            <p style={{fontSize:"15px"}}>Check your internet connection</p>
+                        </div>
+                    </div>
                   </div>
                   }
                 </DialogContentText>
