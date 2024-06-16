@@ -24,7 +24,7 @@ export default function OnlineStatus() {
   },[])
     return (
         <Dialog
-          open={true}
+          open={false}
           fullWidth
           maxWidth={'xs'}
         >

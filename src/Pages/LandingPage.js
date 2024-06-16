@@ -1,11 +1,11 @@
 import { Container, Image, Navbar, Row } from "react-bootstrap";
 import logo from '../Img/Vault Guard (2).png';
-import Vault from '../Img/lock (1).png';
+import Vault from '../Img/undraw_Security_re_a2rk-removebg-preview.png';
 import { Button } from "@mui/material";
 
 const LandingPage=()=>{
     return(
-        <Container style={{height:"100vh",background:"#86D5A7"}} fluid>
+        <Container style={{minHeight:"100vh",background:"#86D5A7"}} fluid>
             <Row>
                 <Navbar>
                     <Container className="d-flex align-content-between justify-content-between" fluid>
@@ -28,7 +28,7 @@ const LandingPage=()=>{
                 </Navbar>
             </Row>
             <Row>
-                    <div className="col-6 d-flex justify-content-end align-items-center">
+                    <div className="col-12 col-sm-12 col-md-12 col-lg-6 col-xxl-6 d-flex justify-content-end align-items-center">
                        <div className="row d-flex align-content-end mt-5">
                             <h1>Vault Guard </h1>
                             <h1>online back up services</h1>
@@ -37,8 +37,8 @@ const LandingPage=()=>{
                             <Button href="/Signup" style={{backgroundColor:"#379683"}} className="col-5 mt-4 m-3 p-3 rounded-4" variant="contained">Get started</Button>
                        </div>
                     </div>
-                    <div className="col-6 d-flex align-content-end justify-content-end">
-                       <Image style={{height:"370px",width:"370px"}}  alt="img" src={Vault}></Image>
+                    <div className="col-12 col-sm-12 col-md-12 col-lg-6 col-xxl-6 d-flex align-content-sm-center align-content-md-end align-content-lg-end align-content-center justify-content-center">
+                       <Image alt="img" src={Vault}></Image>
                     </div>
             </Row>
         </Container>
