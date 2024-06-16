@@ -39,7 +39,7 @@
     <a href="https://github.com/othneildrew/Best-README-Template"><strong>Explore the docs »</strong></a>
     <br />
     <br />
-    <a href="https://edwins-portfolio.vercel.app/">View Demo</a>
+    <a href="https://vaultguardio-edwinngilas-projects.vercel.app/">View Demo</a>
     ·
     <a href="https://github.com/othneildrew/Best-README-Template/issues/new?labels=bug&template=bug-report---.md">Report Bug</a>
     ·
