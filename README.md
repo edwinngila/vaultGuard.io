@@ -28,7 +28,7 @@
 <br />
 <div align="center">
   <a href="https://github.com/othneildrew/Best-README-Template">
-    <img src="/src/Img/Vault Guard (2).png" alt="Logo" width="100" height="100">
+    <img src="/src/Img/Vault Guard (2).png" alt="Logo">
   </a>
 
   <h3 align="center">Vault Guard</h3>
@@ -97,8 +97,8 @@ The project Vault Guard has been build using the following technologies.
 
 * [![React][React.js]][React-url]
 * [![Bootstrap][Bootstrap.com]][Bootstrap-url]
-* [![MUI](https://img.shields.io/badge/MUI-%230081CB.svg?style=for-the-badge&logo=mui&logoColor=white)]
-* [![Firebase](https://img.shields.io/badge/firebase-a08021?style=for-the-badge&logo=firebase&logoColor=ffcd34)]
+* ![MUI](https://img.shields.io/badge/MUI-%230081CB.svg?style=for-the-badge&logo=mui&logoColor=white)
+* ![Firebase](https://img.shields.io/badge/firebase-a08021?style=for-the-badge&logo=firebase&logoColor=ffcd34)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
