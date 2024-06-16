@@ -80,10 +80,10 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-[![Product Name Screen Shot][product-screenshot]](https://github.com/edwinngila/vaultGuard.io/src/Img/s1.jpg)
-[![Product Name Screen Shot][product-screenshot]](https://github.com/edwinngila/vaultGuard.io/src/Img/S2.jpg)
-[![Product Name Screen Shot][product-screenshot]](https://github.com/edwinngila/vaultGuard.io/src/Img/S3.jpg)
-[![Product Name Screen Shot][product-screenshot]](https://github.com/edwinngila/vaultGuard.io/src/Img/S4.jpg)
+[![Landing page screen shot][product-screenshot]](https://github.com/edwinngila/vaultGuard.io/blob/master/src/Img/s1.jpg?raw=true)
+[![Signin page screen shot][product-screenshot]](https://github.com/edwinngila/vaultGuard.io/blob/master/src/Img/S2.jpg?raw=true)
+[![Signup page screen shot][product-screenshot]](https://github.com/edwinngila/vaultGuard.io/blob/master/src/Img/S3.jpg?raw=true)
+[![Home page screen shot][product-screenshot]](https://github.com/edwinngila/vaultGuard.io/blob/master/src/Img/S4.jpg?raw=true)
 
 There are many great README templates available on GitHub; however, I didn't find one that really suited my needs so I created this enhanced one. I want to create a README template so amazing that it'll be the last one you ever need -- I think this is it.
 
