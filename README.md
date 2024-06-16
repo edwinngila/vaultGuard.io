@@ -77,10 +77,10 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-[![Landing page screen shot][product-screenshot]](https://github.com/edwinngila/vaultGuard.io/blob/master/src/Img/s1.jpg?raw=true)
-[![Signin page screen shot][product-screenshot]](https://github.com/edwinngila/vaultGuard.io/blob/master/src/Img/S2.jpg?raw=true)
-[![Signup page screen shot][product-screenshot]](https://github.com/edwinngila/vaultGuard.io/blob/master/src/Img/S3.jpg?raw=true)
-[![Home page screen shot][product-screenshot]](https://github.com/edwinngila/vaultGuard.io/blob/master/src/Img/S4.jpg?raw=true)
+[![Landing page screen shot][product-screenshot]](/Assets/s1.jpg)
+[![Signin page screen shot][product-screenshot]](/Assets/S2.jpg)
+[![Signup page screen shot][product-screenshot]](/Assets/S3.jpg)
+[![Home page screen shot][product-screenshot]](/Assets/S4.jpg)
 
 Vault Guard is an advanced online backup system designed to offer users seamless data storage solutions. Through this platform, users can effortlessly create an accounts and securely upload their data to an online Vault, where file paths are meticulously stored in a relational database. Once uploaded, the data undergoes a strict scanning process using cutting-edge third-party APIs to detect and eliminate any potential viruses. In the event of a virus detection, users are promptly notified, ensuring that infected files are not uploaded. Following this, robust encryption measures are applied, with encryption keys securely stored within the database. The encrypted data is then stored on a server equipped with well-organized file management systems. Users enjoy flexibility, being able to upload a diverse array of file types, including MP3 files, Word documents, PDFs, photos, and videos. Furthermore, authenticated users have the privilege to download their files from the online vault or seamlessly upload new ones. 
 
