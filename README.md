@@ -28,7 +28,7 @@
 <br />
 <div align="center">
   <a href="https://github.com/othneildrew/Best-README-Template">
-    <img src="/src/Img/Vault Guard (2).png" alt="Logo" width="80" height="80">
+    <img src="/src/Img/Vault Guard (2).png" alt="Logo" width="100" height="100">
   </a>
 
   <h3 align="center">Vault Guard</h3>
@@ -80,10 +80,10 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-[![Product Name Screen Shot][product-screenshot]](/src/Img/s1.jpg)
-[![Product Name Screen Shot][product-screenshot]](/src/Img/S2.jpg)
-[![Product Name Screen Shot][product-screenshot]](/src/Img/S3.jpg)
-[![Product Name Screen Shot][product-screenshot]](/src/Img/S4.jpg)
+[![Product Name Screen Shot][product-screenshot]](https://github.com/edwinngila/vaultGuard.io/src/Img/s1.jpg)
+[![Product Name Screen Shot][product-screenshot]](https://github.com/edwinngila/vaultGuard.io/src/Img/S2.jpg)
+[![Product Name Screen Shot][product-screenshot]](https://github.com/edwinngila/vaultGuard.io/src/Img/S3.jpg)
+[![Product Name Screen Shot][product-screenshot]](https://github.com/edwinngila/vaultGuard.io/src/Img/S4.jpg)
 
 There are many great README templates available on GitHub; however, I didn't find one that really suited my needs so I created this enhanced one. I want to create a README template so amazing that it'll be the last one you ever need -- I think this is it.
 
