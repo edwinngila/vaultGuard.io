@@ -6,15 +6,41 @@ import PersonAddAltIcon from '@mui/icons-material/PersonAddAlt';
 import FolderIcon from '@mui/icons-material/Folder';
 import StarIcon from '@mui/icons-material/Star';
 import { useContext, useEffect, useState } from "react";
-import { DeleteFile, ListDirectories } from "../FirebaseFunctions/HomeFunctions";
+import { DeleteFile, ListDirectories, storeStaredItems } from "../FirebaseFunctions/HomeFunctions";
 import { Progress } from "../UseContext/ScreenLoader";
 import { useNavigate } from "react-router-dom";
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+import { formatByte } from "../FirebaseFunctions/MyDriveFunction";
+import JSZip from "jszip";
+import { saveAs } from 'file-saver';
 
 const HomeSubPage =()=>{
     const{handleClose,handleOpen}=useContext(Progress);
     const [files,setFiles]=useState([]);
     const history=useNavigate();
+
+    const zipAndDownload = async (fileUrl, fileName) => {
+        try {
+          const zip = new JSZip();
+      
+          // Fetch the file from the URL with 'no-cors' mode
+          const response = await fetch(fileUrl, { mode: 'no-cors' });
+          const fileData = await response.blob();
+
+          console.log(fileData);
+      
+          // Add the file to the zip
+          zip.file(fileName, fileData);
+      
+          // Generate the zip file
+          const zipBlob = await zip.generateAsync({ type: 'blob' });
+      
+          // Save the zip file
+          saveAs(zipBlob, `${fileName}.zip`);
+        } catch (error) {
+          console.error('Error zipping and downloading the file:', error);
+        }
+      };
 
     const handleDownload = (fileData,fileName) => {
         if (fileData) {
@@ -74,8 +100,10 @@ const HomeSubPage =()=>{
             selector: row=>
                           <div>
                               <span onClick={()=>{DeleteFile(row.name)}} style={{cursor:"pointer"}} className="m-1"><DeleteIcon/></span>
-                              <span style={{cursor:"pointer"}} className="m-1"><StarIcon/></span>
-                              <span onClick={()=>{handleDownload(row.URL,row.name)}} style={{cursor:"pointer"}} className="m-1"><SaveAltIcon/></span>
+                              <span onClick={()=>{
+                                storeStaredItems(row.name,row.URL,row.size,row.date)
+                              }} style={{cursor:"pointer"}} className="m-1"><StarIcon/></span>
+                              <span onClick={()=>{zipAndDownload(row.URL,row.name)}} style={{cursor:"pointer"}} className="m-1"><SaveAltIcon/></span>
                               <span onClick={()=>{history(`ViewFolder/${row.name}`)}} style={{cursor:"pointer"}} className="m-1"><ArrowForwardIcon/></span>
                           </div>,
             width:"300px",

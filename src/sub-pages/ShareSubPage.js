@@ -1,33 +1,16 @@
 import { Container } from "react-bootstrap";
 import DataTable from "react-data-table-component";
-import SaveAltIcon from '@mui/icons-material/SaveAlt';
-import DeleteIcon from '@mui/icons-material/Delete';
-import PersonAddAltIcon from '@mui/icons-material/PersonAddAlt';
-import FolderIcon from '@mui/icons-material/Folder';
-import StarIcon from '@mui/icons-material/Star';
 import { useContext, useEffect, useState } from "react";
-import { DeleteFile, ListDirectories } from "../FirebaseFunctions/HomeFunctions";
 import { Progress } from "../UseContext/ScreenLoader";
 import { useNavigate } from "react-router-dom";
-import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+import ShareIcon from '@mui/icons-material/Share';
+import { SnackTost } from "../UseContext/Hook";
 
-const HomeSubPage =()=>{
+const ShareSubPage =()=>{
     const{handleClose,handleOpen}=useContext(Progress);
     const [files,setFiles]=useState([]);
     const history=useNavigate();
-
-    const handleDownload = (fileData,fileName) => {
-        if (fileData) {
-            const fileUrl = window.URL.createObjectURL(fileData);
-            const link = document.createElement('a');
-            link.href = fileUrl;
-            link.setAttribute('download', fileName);
-            document.body.appendChild(link);
-            link.click();
-            window.URL.revokeObjectURL(fileUrl);
-            document.body.removeChild(link);
-          }
-    };
+    const { open, setOpen, setMessage, setSeverity } = useContext(SnackTost);
 
     const handleRowClick = (row) => {
         history("Recent");
@@ -38,7 +21,7 @@ const HomeSubPage =()=>{
             handleOpen();
             const fetchData = async () => {
                 try {
-                  await ListDirectories();
+                //   await ListDirectories();
                   const localStorageFiles = JSON.parse(localStorage.getItem('files'));
 
                   setFiles(localStorageFiles);
@@ -73,10 +56,13 @@ const HomeSubPage =()=>{
             name:"Action",
             selector: row=>
                           <div>
-                              <span onClick={()=>{DeleteFile(row.name)}} style={{cursor:"pointer"}} className="m-1"><DeleteIcon/></span>
-                              <span style={{cursor:"pointer"}} className="m-1"><StarIcon/></span>
-                              <span onClick={()=>{handleDownload(row.URL,row.name)}} style={{cursor:"pointer"}} className="m-1"><SaveAltIcon/></span>
-                              <span onClick={()=>{history(`ViewFolder/${row.name}`)}} style={{cursor:"pointer"}} className="m-1"><ArrowForwardIcon/></span>
+                              <span onClick={
+                                ()=>{
+                                    navigator.clipboard.writeText(row.URL)
+                                    setOpen(!open)
+                                    setMessage("Link copied successful")
+                                    setSeverity("success")
+                                }} style={{cursor:"pointer"}} className="m-1"><ShareIcon/></span>
                           </div>,
             width:"300px",
             sortable:true
@@ -111,4 +97,4 @@ const HomeSubPage =()=>{
             ></DataTable>
     )
 }
-export default HomeSubPage;
+export default ShareSubPage;

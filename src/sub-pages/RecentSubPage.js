@@ -6,12 +6,13 @@ import PersonAddAltIcon from '@mui/icons-material/PersonAddAlt';
 import FolderIcon from '@mui/icons-material/Folder';
 import StarIcon from '@mui/icons-material/Star';
 import { useContext, useEffect, useState } from "react";
-import { DeleteFile, ListDirectories } from "../FirebaseFunctions/HomeFunctions";
+import { DeleteFile } from "../FirebaseFunctions/HomeFunctions";
 import { Progress } from "../UseContext/ScreenLoader";
 import { useNavigate } from "react-router-dom";
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+import { ListDirectories } from "../FirebaseFunctions/RecentFunction";
 
-const HomeSubPage =()=>{
+const RecentSubPage =()=>{
     const{handleClose,handleOpen}=useContext(Progress);
     const [files,setFiles]=useState([]);
     const history=useNavigate();
@@ -111,4 +112,4 @@ const HomeSubPage =()=>{
             ></DataTable>
     )
 }
-export default HomeSubPage;
+export default RecentSubPage;

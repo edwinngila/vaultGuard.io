@@ -2,13 +2,12 @@ import { Button, Checkbox, FormControlLabel, TextField} from "@mui/material";
 import { Container, Form, FormGroup } from "react-bootstrap";
 import GoogleIcon from '@mui/icons-material/Google';
 import "../css/signupForm.css"
-import HandleSubmit from "../FirebaseFunctions/SigninFunctions";
 import { useContext, useState } from "react";
 import { SnackTost } from "../UseContext/Hook";
 import { Link, useNavigate } from "react-router-dom";
 import { Progress } from "../UseContext/ScreenLoader";
 import ReCAPTCHA from "react-google-recaptcha";
-import { ListDirectories } from "../FirebaseFunctions/HomeFunctions";
+import { HandleSubmit } from "../FirebaseFunctions/SigninFunctions";
 
 const SigninForm =()=>{
     const[email,setEmail]=useState();
@@ -22,7 +21,7 @@ const SigninForm =()=>{
     const handleSubmit = async (e,email, Password,rememberMe,handleClose,handleOpen,history) => {
         e.preventDefault();
         if(saveItems){
-         HandleSubmit(email, Password,setMessage, setSeverity,open, setOpen,rememberMe,handleClose,handleOpen,history);
+            HandleSubmit(email, Password,setMessage, setSeverity,open, setOpen,rememberMe,handleClose,handleOpen,history);
         }
         else{
             setOpen(!open)
@@ -113,6 +112,7 @@ const SigninForm =()=>{
                         />
                         <Link style={{color: '#05386b'}} className="p-2" to={"/Forgotpassword"}>Forgotpassword?</Link>
                     </FormGroup>
+                    <div id="recaptcha"></div>
                     <div className="row d-flex justify-content-center align-content-center ">
                         <p className="mt-4" style={{textAlign:"center"}}>Don't have an account <Link style={{color:"#edf5e1"}} to="/Signup"><b>Sign up</b></Link></p>
                     </div>

@@ -20,6 +20,9 @@ import HomePage from "./Pages/HomePage";
 import OnlineStatus from "./Components/OnlineStatus";
 import { calculateSpace } from "./FirebaseFunctions/calculateSpace";
 import ViewFolder from "./sub-pages/ViewFolder";
+import VerifyEmail from "./Components/VerifyEmail";
+import useInactivityLogout from "./Components/inactivityLogout";
+import OTP from "./Auth/OTPpage";
 
 function App() {
   const [open, setOpen] = useState(false);
@@ -71,6 +74,8 @@ function App() {
     OpenDialog,setOpenDialog
   }
   const history= useNavigate()
+  useInactivityLogout(600000,setOpen,open,setMessage,setSeverity,handleClose,handleOpen,history);
+ 
   useEffect(() => {
     const rememberMeCookie = Cookies.get("RememberMe");
     const usernameCookie = Cookies.get('Name');
@@ -92,8 +97,9 @@ function App() {
             <Routes>
                 <Route element={<SigninForm/>} path="/Signin" index />
                 <Route element={<SignupForm/>} path="/Signup"/>
-                <Route element={<LandingPage/>} path="/"/>                
-                <Route element={<Forgotpassword/>} path="/Forgotpassword"/>
+                <Route element={<LandingPage/>} path="/"/>   
+                <Route element={<OTP/>} path="/OTP/:email"/>            
+                <Route element={<VerifyEmail/>} path="/VerifyEmail"/>
                 <Route element={<HomePage/>} path="/HomePage">
                     <Route index path='' element={<HomeSubPage/>}/>
                     <Route path='MyDrive' element={<MyDriveSubPage/>}/>

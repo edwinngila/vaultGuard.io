@@ -24,7 +24,7 @@ const SignOut =(
         setOpen(!open)
         setMessage("User logout successful")
         setSeverity("success")
-        history("/");
+        history("/Signin");
     }).catch((error) => {
         
         handleClose()

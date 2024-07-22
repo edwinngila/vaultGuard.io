@@ -2,6 +2,7 @@ import { deleteObject, getDownloadURL, getMetadata, getStorage, listAll, ref, up
 import app from "../Server/Firebase";
 import Cookies from "js-cookie";
 import FolderIcon from '@mui/icons-material/Folder';
+import { addDoc, collection, getFirestore } from "firebase/firestore";
 
 // import { addDoc, collection, getFirestore } from "firebase/firestore";
 // import CryptoJS from 'crypto-js';
@@ -289,6 +290,12 @@ export const ListDirectories = async () => {
   }
 }
 
+export const DownloadFile=()=>{
+    const storage = getStorage(app)
+    const userId = Cookies.get("Uid")
+    const listRef = ref(storage, userId);
+}
+
 const formatBytes = (bytes, decimals = 2) => {
   if (bytes === 0) return '0 Bytes';
   const k = 1024;
@@ -349,6 +356,25 @@ async function getFolderSize(folderPath) {
     console.error('Error getting folder size:', error);
     throw error;
   }
+}
+
+export const storeStaredItems=(nameFile,fileURL,size,dateCreated)=>{
+  const firestore = getFirestore(app);
+    const ref = collection(firestore,"STARRED");
+
+    let data={
+      nameFile:nameFile,
+      fileURL:fileURL,
+      size:size,
+      dateCreated:dateCreated
+    }
+    try {
+        addDoc(ref,data);
+        console.log("user has been added successfully")
+    } catch (error) {
+        console.log(error);
+        console.log("error adding the user")
+    }
 }
 
 // Example usage

@@ -10,6 +10,7 @@ import { DeleteFile, ListDirectories } from "../FirebaseFunctions/HomeFunctions"
 import { Progress } from "../UseContext/ScreenLoader";
 import { useNavigate } from "react-router-dom";
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+import { getStarredItems } from "../FirebaseFunctions/SharedItemsFunctions";
 
 const HomeSubPage =()=>{
     const{handleClose,handleOpen}=useContext(Progress);
@@ -38,8 +39,8 @@ const HomeSubPage =()=>{
             handleOpen();
             const fetchData = async () => {
                 try {
-                  await ListDirectories();
-                  const localStorageFiles = JSON.parse(localStorage.getItem('files'));
+                  await getStarredItems();
+                  const localStorageFiles = JSON.parse(localStorage.getItem('Starred'));
 
                   setFiles(localStorageFiles);
 
@@ -55,7 +56,7 @@ const HomeSubPage =()=>{
     const Columns=[
         {
             name:"Name",
-            selector: row=>row.name,
+            selector: row=>row.nameFile,
             sortable:true
         },
         {
@@ -66,7 +67,7 @@ const HomeSubPage =()=>{
         },
         {
             name:"Date created",
-            selector: row=>row.date,
+            selector: row=>row.dateCreated,
             sortable:true
         },
         {

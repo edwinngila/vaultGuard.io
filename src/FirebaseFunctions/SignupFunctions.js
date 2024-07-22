@@ -4,7 +4,7 @@ import app from "../Server/Firebase";
 import { addDoc, collection, getFirestore } from "firebase/firestore";
 // import { redirect, useNavigate } from "react-router-dom";
 
-const AddUsers=(FirstName,SecondName,Email,UserID)=>{
+const AddUsers=(FirstName,SecondName,Email,Phone,UserID)=>{
     const firestore = getFirestore(app);
     const ref = collection(firestore,"USERS");
 
@@ -12,6 +12,7 @@ const AddUsers=(FirstName,SecondName,Email,UserID)=>{
         FirstName:FirstName,
         SecondName:SecondName,
         Email:Email,
+        Phone:Phone,
         UserID:UserID
     }
     try {
@@ -27,6 +28,7 @@ const HandleSubmit=(
     FirstName,
     SecondName,
     email,
+    Phone,
     Password,
     setMessage,
     setSeverity,
@@ -38,7 +40,7 @@ const HandleSubmit=(
 )=>{
     const Auth = getAuth(app)
     handleOpen();
-    if(!FirstName||!SecondName||!email||!Password){
+    if(!FirstName||!SecondName||!email||!Password ||!Phone){
         handleClose()
         setOpen(!open)
         setMessage("Fill all Fields")
@@ -46,7 +48,7 @@ const HandleSubmit=(
         return
     }
     createUserWithEmailAndPassword(Auth,email,Password)
-    .then((userCredential)=>{
+    .then(async(userCredential)=>{
         const user = userCredential.user;
         const UserID = user.uid;
         if(!FirstName||!SecondName||!email){
@@ -54,18 +56,26 @@ const HandleSubmit=(
             setOpen(!open)
             setMessage("Fill all Fields")
             setSeverity("error")
-            return
+            return 
         }
-        updateProfile(Auth.currentUser,{
-            displayName:`${FirstName} ${SecondName}`
-        })
-        AddUsers(FirstName,SecondName,email,UserID)
+        const profileUpdates = {
+            displayName: `${FirstName} ${SecondName}`,
+            phoneNumber: `${Phone}`
+          };
+      
+          try {
+            await updateProfile(profileUpdates);
+          } catch (error) {
+            // Handle errors updating profile (optional)
+            console.error("Error updating user profile:", error);
+        }
+        AddUsers(FirstName,SecondName,email,Phone,UserID)
         //call the snack bar from context
         handleClose()
         setOpen(!open)
         setMessage("User regestered successful")
         setSeverity("success")
-        history("/");
+        history("/Signin")
     })
     .catch((error) => {
         const errorCode = error.code;

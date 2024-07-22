@@ -1,0 +1,17 @@
+.opt-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 0.5rem; /* Assuming gap-2 translates to 0.5rem */
+}
+.opt-container input {
+    margin-right: 0 !important; /* !mr-0 */
+    flex: 1; /* flex-1 */
+    padding-top: 1.25rem; /* py-5 translates to padding-top: 1.25rem and padding-bottom: 1.25rem */
+    padding-bottom: 1.25rem;
+    outline: none; /* outline-none */
+}
+
+.main-container{
+    background-color:"";
+    height:"100vh";
+}
